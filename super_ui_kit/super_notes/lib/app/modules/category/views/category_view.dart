@@ -22,24 +22,28 @@ class CategoryView extends GetView<CategoryController> {
                 )),
           ),
           verticalSpaceSmall,
-          Expanded(
-            child: Obx((() => LiveList.options(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemBuilder:
-                      animationItemBuilder(((index) => CategoryCardView(
-                            controller.categories[index],
-                            ontap: () => controller
-                                .openCategory(controller.categories[index]),
-                          ))),
-                  itemCount: controller.categories.length,
-                  options: kAnimationOptions,
-                ))),
+          Obx(
+            (() => (controller.categories.isNotEmpty)
+                ? Expanded(
+                    child: LiveList.options(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemBuilder:
+                          animationItemBuilder(((index) => CategoryCardView(
+                                controller.categories[index],
+                                ontap: () => controller
+                                    .openCategory(controller.categories[index]),
+                              ))),
+                      itemCount: controller.categories.length,
+                      options: kAnimationOptions,
+                    ),
+                  )
+                : const Padding(padding: EdgeInsets.zero)),
           ),
-          Expanded(
-            child: Obx(
-              (() => (controller.category.value.isLast)
-                  ? LiveList.options(
+          Obx(
+            (() => (controller.notes.isNotEmpty)
+                ? Expanded(
+                    child: LiveList.options(
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
                       itemBuilder:
@@ -50,9 +54,9 @@ class CategoryView extends GetView<CategoryController> {
                               ))),
                       itemCount: controller.notes.length,
                       options: kAnimationOptions,
-                    )
-                  : const Padding(padding: EdgeInsets.zero)),
-            ),
+                    ),
+                  )
+                : const Padding(padding: EdgeInsets.zero)),
           ),
         ],
       ),

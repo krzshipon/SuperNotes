@@ -21,6 +21,7 @@ class CategoryController extends GetxController {
     super.onInit();
     var selectedCategoryId = box.read(kCurrentSelectedCategoryIdKey);
     getSelectedCategory(selectedCategoryId);
+    categoryStack.add(selectedCategoryId);
   }
 
   @override
@@ -39,11 +40,6 @@ class CategoryController extends GetxController {
   void getSelectedCategory(selectedCategoryId) {
     var selectedCategory = _dbService.realm!.find<Category>(selectedCategoryId);
     if (selectedCategory != null) {
-      if (categoryStack.contains(selectedCategoryId)) {
-        categoryStack.remove(selectedCategoryId);
-      } else {
-        categoryStack.add(selectedCategoryId);
-      }
       category.value = selectedCategory;
       categories.bindStream(getCategories(selectedCategory.id));
       notes.bindStream(getNotes(selectedCategory.id));
@@ -52,6 +48,7 @@ class CategoryController extends GetxController {
 
   openCategory(Category category) {
     getSelectedCategory(category.id);
+    categoryStack.add(category.id);
   }
 
   Stream<List<Category>> getCategories(ObjectId parentId) {
