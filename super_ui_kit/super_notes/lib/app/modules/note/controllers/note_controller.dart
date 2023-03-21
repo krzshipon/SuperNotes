@@ -1,23 +1,42 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:realm/realm.dart';
+import 'package:super_notes/app/data/models/note.dart';
+import 'package:super_notes/app/services/db_service.dart';
+import 'package:super_notes/app/util/app_constants.dart';
 
 class NoteController extends GetxController {
-  //TODO: Implement NoteController
+  final _dbService = Get.find<DbService>();
 
-  final count = 0.obs;
+  final note = Note(ObjectId(), updatedAt: DateTime.now()).obs;
+  final isFav = false.obs;
+
+  GetStorage box = GetStorage();
+
   @override
   void onInit() {
     super.onInit();
+    var noteId = box.read(kCurrentSelectedNoteKey);
+    if (noteId != null) {
+      getNote(ObjectId.fromHexString(noteId));
+    }
   }
 
   @override
-  void onReady() {
-    super.onReady();
+  void onClose() {}
+
+  void getNote(noteId) {
+    final noteInDb = _dbService.realm!.find<Note>(noteId);
+    if (noteInDb != null) {
+      note.value = noteInDb;
+    }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  gotoReadNote() {
+    //Get.toNamed(Routes);
   }
 
-  void increment() => count.value++;
+  void updateLikeStatus() {}
+
+  void updateNote(bool isFav) {}
 }
