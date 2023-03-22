@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:super_notes/app/data/asset_keys.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 
@@ -16,16 +17,16 @@ class NoteView extends GetView<NoteController> {
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
       child: Column(
         children: [
-          // Stack(
-          //   children: [
-          //     LottieBuilder.asset(kaDashboardFeaturedLottieFile),
-          //     const Positioned(
-          //       left: -15,
-          //       right: 0,
-          //       child: CSHeader(),
-          //     ),
-          //   ],
-          // ),
+          Stack(
+            children: [
+              LottieBuilder.asset(kaDashboardFeaturedAnim),
+              const Positioned(
+                left: -15,
+                right: 0,
+                child: CSHeader(),
+              ),
+            ],
+          ),
           verticalSpaceSmall,
           Expanded(
             child: ListView(

@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:super_notes/app/modules/category/views/category_view.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/category/bindings/category_binding.dart';
+import '../modules/category/views/category_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/favourite/bindings/favourite_binding.dart';
@@ -24,6 +24,8 @@ import '../modules/note_req/bindings/note_req_binding.dart';
 import '../modules/note_req/views/note_req_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/reading/bindings/reading_binding.dart';
+import '../modules/reading/views/reading_view.dart';
 import '../modules/search/bindings/search_binding.dart';
 import '../modules/search/views/search_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
@@ -106,6 +108,11 @@ class AppPages {
       name: _Paths.CATEGORY,
       page: () => const CategoryView(),
       binding: CategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.READING,
+      page: () => const ReadingView(),
+      binding: ReadingBinding(),
     ),
   ];
 }

@@ -17,6 +17,7 @@ abstract class Routes {
   static const AUTH = _Paths.AUTH;
   static const SETTING = _Paths.SETTING;
   static const CATEGORY = _Paths.CATEGORY;
+  static const READING = _Paths.READING;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const AUTH = '/auth';
   static const SETTING = '/setting';
   static const CATEGORY = '/category';
+  static const READING = '/reading';
 }

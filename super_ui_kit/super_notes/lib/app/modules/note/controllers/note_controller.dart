@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/models/note.dart';
+import 'package:super_notes/app/routes/app_pages.dart';
 import 'package:super_notes/app/services/db_service.dart';
 import 'package:super_notes/app/util/app_constants.dart';
 
@@ -33,7 +34,7 @@ class NoteController extends GetxController {
   }
 
   gotoReadNote() {
-    //Get.toNamed(Routes);
+    Get.toNamed(Routes.READING);
   }
 
   void updateLikeStatus() {}

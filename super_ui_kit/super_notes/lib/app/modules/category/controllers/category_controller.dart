@@ -67,8 +67,8 @@ class CategoryController extends GetxController {
     return categoryStream.map((event) => event.results.toList());
   }
 
-  openNote(Note note) {
-    //box.write(kCurrentSelectedNoteKey, note.id.hexString);
+  void openNote(Note note) {
+    box.writeInMemory(kCurrentSelectedNoteKey, note.id.hexString);
     Get.toNamed(Routes.NOTE);
   }
 }
