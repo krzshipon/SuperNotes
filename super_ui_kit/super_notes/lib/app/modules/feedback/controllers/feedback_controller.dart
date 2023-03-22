@@ -1,23 +1,17 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:super_ui_kit/super_ui_kit.dart';
 
 class FeedbackController extends GetxController {
-  //TODO: Implement FeedbackController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  final tcFeedback = TextEditingController();
 
   @override
-  void onReady() {
-    super.onReady();
-  }
+  void onClose() {}
 
-  @override
-  void onClose() {
-    super.onClose();
+  Future<void> sendFeedback() async {
+    var msg = tcFeedback.text;
+    if (msg.isNotEmpty) {
+    } else {
+      Get.back();
+    }
   }
-
-  void increment() => count.value++;
 }

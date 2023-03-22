@@ -1,23 +1,42 @@
+import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+import 'package:super_notes/app/modules/language/views/language_item_view.dart';
+import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../controllers/language_controller.dart';
 
 class LanguageView extends GetView<LanguageController> {
-  const LanguageView({Key? key}) : super(key: key);
+  const LanguageView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('LanguageView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'LanguageView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+    return CSHomeWidget(
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+      child: Column(
+        children: [
+          CSHeader(
+            title: 'lang'.tr,
+          ),
+          verticalSpaceSmall,
+          Expanded(
+            child: Obx(
+              () => LiveList.options(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                options: kAnimationOptions,
+                itemBuilder: animationItemBuilder(
+                  (index) => LanguageItemView(
+                    controller.languages[index],
+                    ontap: () =>
+                        controller.changeLanguage(controller.languages[index]),
+                  ),
+                ),
+                itemCount: controller.languages.length,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -1,23 +1,38 @@
 import 'package:get/get.dart';
+import 'package:super_notes/app/extentions/string_ext.dart';
+import 'package:super_notes/app/modules/feedback/controllers/feedback_controller.dart';
+import 'package:super_notes/app/modules/feedback/views/feedback_view.dart';
+import 'package:super_notes/app/routes/app_pages.dart';
+import 'package:super_notes/app/services/auth_service.dart';
 
 class SettingController extends GetxController {
-  //TODO: Implement SettingController
+  final AuthService _authService = Get.find<AuthService>();
+  var currentLang = Get.locale?.languageCode.getLanguageFromCode().obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void gotoProfile() {
+    if (_authService.currentUser.value == null) {
+      Get.toNamed(Routes.AUTH);
+    } else {
+      Get.toNamed(Routes.PROFILE);
+    }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void gotoFavourites() {
+    Get.toNamed(Routes.FAVOURITE);
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void gotoLicense() {
+    Get.toNamed(Routes.LICENSE);
   }
 
-  void increment() => count.value++;
+  void gotoLanguageSetting() {
+    Get.toNamed(Routes.LANGUAGE);
+  }
+
+  openFeedbackView() {
+    Get.lazyPut<FeedbackController>(
+      () => FeedbackController(),
+    );
+    Get.bottomSheet(FeedbackView());
+  }
 }
