@@ -1,5 +1,6 @@
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/models/category.dart';
+import 'package:super_notes/app/data/models/feedback.dart';
 import 'package:super_notes/app/data/models/intro.dart';
 import 'package:super_notes/app/data/models/note.dart';
 import 'package:super_notes/app/data/models/profile.dart';
@@ -29,7 +30,8 @@ class DbService extends GetxService {
         Note.schema,
         Review.schema,
         Intro.schema,
-        BasicUser.schema
+        BasicUser.schema,
+        Feedback.schema
       ]);
       realm = Realm(conf);
       // Check if the subscription already exists before adding
@@ -37,11 +39,14 @@ class DbService extends GetxService {
       final noteQuery = realm!.all<Note>();
       final categoriesQuery = realm!.all<Category>();
       final introQuery = realm!.all<Intro>();
+      final feedbackQuery = realm!.query<Feedback>('user_id == \$0', [user.id]);
 
       final userSub = realm?.subscriptions.findByName('profiles');
       final categorySub = realm?.subscriptions.findByName('categories');
       final noteSub = realm?.subscriptions.findByName('notes');
       final introsSub = realm?.subscriptions.findByName('intros');
+      final feedbackSub = realm?.subscriptions.findByName('feedbacks');
+
       // if (userTodoSub == null) {
       realm?.subscriptions.update((mutableSubscriptions) {
         // server-side rules ensure user only downloads their own info
@@ -53,6 +58,8 @@ class DbService extends GetxService {
             name: 'categories', update: true);
         mutableSubscriptions.add(introQuery,
             name: 'intros', update: true);
+        mutableSubscriptions.add(feedbackQuery,
+            name: 'feedbacks', update: true);
       });
       // }
     } else {
