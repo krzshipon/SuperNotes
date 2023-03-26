@@ -10,7 +10,8 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
   static var _defaultsSet = false;
 
   Profile(
-    ObjectId id, {
+    ObjectId id,
+    ObjectId userId, {
     String name = '',
     String mobile = '',
     String email = '',
@@ -43,6 +44,7 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
       });
     }
     RealmObjectBase.set(this, '_id', id);
+    RealmObjectBase.set(this, 'user_id', userId);
     RealmObjectBase.set(this, 'name', name);
     RealmObjectBase.set(this, 'mobile', mobile);
     RealmObjectBase.set(this, 'email', email);
@@ -66,6 +68,12 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
   ObjectId get id => RealmObjectBase.get<ObjectId>(this, '_id') as ObjectId;
   @override
   set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
+
+  @override
+  ObjectId get userId =>
+      RealmObjectBase.get<ObjectId>(this, 'user_id') as ObjectId;
+  @override
+  set userId(ObjectId value) => RealmObjectBase.set(this, 'user_id', value);
 
   @override
   String get name => RealmObjectBase.get<String>(this, 'name') as String;
@@ -167,6 +175,7 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
     return const SchemaObject(ObjectType.realmObject, Profile, 'Profile', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
+      SchemaProperty('userId', RealmPropertyType.objectid, mapTo: 'user_id'),
       SchemaProperty('name', RealmPropertyType.string, indexed: true),
       SchemaProperty('mobile', RealmPropertyType.string, indexed: true),
       SchemaProperty('email', RealmPropertyType.string, indexed: true),

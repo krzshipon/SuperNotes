@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:super_notes/app/data/asset_keys.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
-
 import '../controllers/note_controller.dart';
 
 class NoteView extends GetView<NoteController> {
@@ -43,7 +42,7 @@ class NoteView extends GetView<NoteController> {
                         child: Obx(
                           () => CSIconButton(
                             text: '${controller.note.value.rating}',
-                            icon: true ?? false //TODO: Need to updated
+                            icon: controller.note.value.isFav
                                 ? Icons.favorite_sharp
                                 : Icons.favorite_outline_sharp,
                             color: Get.theme.colorScheme.primary,

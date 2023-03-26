@@ -110,7 +110,9 @@ class ProfileController extends GetxController {
   }
 
   Future<void> updateProfile() async {
-    if (tcName.text.isNotEmpty && tcName.text != "${user.value?.profile.firstName}  ${user.value?.profile.lastName}") {
+    if (tcName.text.isNotEmpty &&
+        tcName.text !=
+            "${user.value?.profile.firstName}  ${user.value?.profile.lastName}") {
       printInfo(info: 'Updating user name');
       try {
         Get.showLoader();

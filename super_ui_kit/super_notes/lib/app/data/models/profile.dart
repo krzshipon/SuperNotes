@@ -7,6 +7,10 @@ class _Profile {
   @PrimaryKey()
   @MapTo('_id')
   late ObjectId id;
+
+  @MapTo('user_id')
+  late ObjectId userId;
+  
   @Indexed()
   String name = '';
 

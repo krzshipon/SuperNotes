@@ -41,4 +41,6 @@ class _Note {
   DateTime updatedAt = DateTime.now();
   @Indexed()
   bool verified = false;
+  @Ignored()
+  bool isFav = false;
 }
