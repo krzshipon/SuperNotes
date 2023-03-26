@@ -12,9 +12,10 @@ class NoteController extends GetxController {
   final _authService = Get.find<AuthService>();
   final _dbService = Get.find<DbService>();
 
-  final note = Note(ObjectId(), updatedAt: DateTime.now()).obs;
-
   GetStorage box = GetStorage();
+
+  final note = Note(ObjectId(), updatedAt: DateTime.now()).obs;
+  final currentPreviewIdx = 0.obs;
 
   @override
   void onInit() {
@@ -75,4 +76,14 @@ class NoteController extends GetxController {
   }
 
   void updateNote(bool isFav) {}
+
+  bacwardPreview() {
+    currentPreviewIdx.value =
+        (currentPreviewIdx.value - 1) % note.value.previews.length;
+  }
+
+  forwardPreview() {
+    currentPreviewIdx.value =
+        (currentPreviewIdx.value + 1) % note.value.previews.length;
+  }
 }

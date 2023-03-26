@@ -5,6 +5,8 @@ import 'package:super_ui_kit/super_ui_kit.dart';
 import '../controllers/note_controller.dart';
 
 class NoteView extends GetView<NoteController> {
+  const NoteView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CSHomeWidget(
@@ -75,10 +77,11 @@ class NoteView extends GetView<NoteController> {
                   childrens: [
                     Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Center(
                             child: CSIconButton(
                               icon: Icons.arrow_back_ios_new_sharp,
+                              ontap: () => controller.bacwardPreview(),
                             ),
                           ),
                         ),
@@ -88,15 +91,25 @@ class NoteView extends GetView<NoteController> {
                             height: 300,
                             color: kCardBackgroundColor,
                             child: Center(
-                              child: CSText.label('noPreview'.tr),
+                              child: Obx(
+                                () => controller.note.value.previews.isNotEmpty
+                                    ? Image.network(
+                                        controller.note.value.previews[
+                                            controller.currentPreviewIdx.value],
+                                      )
+                                    : CSText.label('noPreview'.tr),
+                              ),
                             ),
                           ),
                         ),
-                        const Expanded(
-                            child: Center(
-                                child: CSIconButton(
-                          icon: Icons.arrow_forward_ios_sharp,
-                        )))
+                        Expanded(
+                          child: Center(
+                            child: CSIconButton(
+                              icon: Icons.arrow_forward_ios_sharp,
+                              ontap: () => controller.forwardPreview(),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
