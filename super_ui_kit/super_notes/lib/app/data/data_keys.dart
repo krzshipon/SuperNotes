@@ -6,3 +6,4 @@ const kUserFavouriteList = "user_favourites";
 
 //Functions
 const kfWriteUserData = 'writeCustomUserData';
+const kfChangeUserpassword = 'changePassword';

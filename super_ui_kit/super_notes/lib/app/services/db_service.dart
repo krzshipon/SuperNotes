@@ -35,7 +35,7 @@ class DbService extends GetxService {
       ]);
       realm = Realm(conf);
       // Check if the subscription already exists before adding
-      final profileQuery = realm!.all<Profile>();
+      final profileQuery = realm!.query<Profile>('user_id == \$0', [user.id]);
       final noteQuery = realm!.all<Note>();
       final categoriesQuery = realm!.all<Category>();
       final introQuery = realm!.all<Intro>();

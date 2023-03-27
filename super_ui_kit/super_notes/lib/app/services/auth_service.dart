@@ -1,4 +1,5 @@
 import 'package:realm/realm.dart';
+import 'package:super_notes/app/data/data_keys.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 class AuthService extends GetxService {
@@ -29,6 +30,20 @@ class AuthService extends GetxService {
         await _app.logIn(Credentials.emailPassword(email, password));
     currentUser.value = loggedInUser;
     return loggedInUser;
+  }
+
+  Future<bool> changePassWord(String oldPassWord, String newPassWord) async {
+    final Map<String, dynamic> args = {
+      "oldpassword": oldPassWord,
+      "newpassword": newPassWord
+    };
+    var result =
+        await _app.currentUser?.functions.call(kfChangeUserpassword, [args]);
+    if (result['success']) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<void> logOutUser() async {

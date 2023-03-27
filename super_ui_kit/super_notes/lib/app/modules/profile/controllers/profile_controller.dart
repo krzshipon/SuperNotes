@@ -2,13 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
+import 'package:super_notes/app/data/models/profile.dart';
 import 'package:super_notes/app/services/auth_service.dart';
+import 'package:super_notes/app/services/db_service.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 class ProfileController extends GetxController {
   final AuthService _authService = Get.find<AuthService>();
+  final DbService _dbService = Get.find<DbService>();
 
   var user = Rxn<User?>();
+  var profile = Rxn<Profile?>();
   var editModeActive = false.obs;
   var emailEditModeActive = false.obs;
   var passEditModeActive = false.obs;
@@ -22,7 +26,6 @@ class ProfileController extends GetxController {
   final tcEmail = TextEditingController();
   final tcPass = TextEditingController();
   final tcPassConfirm = TextEditingController();
-  late StreamSubscription<User?> userChangeListener;
 
   @override
   void onClose() {
@@ -30,31 +33,22 @@ class ProfileController extends GetxController {
     tcName.dispose();
     tcPass.dispose();
     tcPassConfirm.dispose();
-    userChangeListener.cancel();
   }
 
   @override
   void onInit() {
     super.onInit();
-    userChangeListener = _authService.currentUser.listen((user) {
-      printInfo(info: 'User Changesd: $user');
-      if (user != null) {
-        this.user.value = user;
-        if (emailEditModeActive.isTrue) {
-          updateEmail();
-        } else if (passEditModeActive.isTrue) {
-          updatePass();
-        }
-      }
-    }, cancelOnError: true);
+    user = _authService.currentUser;
+    if (user.value != null) {
+      getProfile(user.value!.id);
+    }
   }
 
   @override
   void onReady() {
     super.onReady();
-    tcName.text =
-        "${user.value?.profile.firstName}  ${user.value?.profile.lastName}";
-    tcEmail.text = '${user.value?.profile.email}';
+    tcName.text = profile.value?.name ?? "";
+    tcEmail.text = user.value?.profile.email ?? "";
 
     tcPass.addListener(() {
       if (tcPass.text.isEmpty) {
@@ -77,7 +71,7 @@ class ProfileController extends GetxController {
     });
 
     tcEmail.addListener(() {
-      emailError.value = !tcEmail.text.isEmail;
+      emailError.value = (tcEmail.text.isEmpty) ? true : false;
     });
   }
 
@@ -116,19 +110,11 @@ class ProfileController extends GetxController {
       printInfo(info: 'Updating user name');
       try {
         Get.showLoader();
-        // await _authService.currentUser
-        //     ?.updateDisplayName(tcName.text)
-        //     .then((value) {
-        //   editModeActive.value = false;
-        //   Get.hideLoader();
-        //   Get.showDialog(
-        //     "profileUpdated".tr,
-        //     title: "success".tr,
-        //     onConfirm: () => Get.back(),
-        //     dialogType: DialogType.success,
-        //   );
-        // });
+        _dbService.realm?.write(() => profile.value?.name = tcName.text);
+        editModeActive.value = false;
+        Get.hideLoader();
       } catch (e) {
+        editModeActive.value = false;
         Get.hideLoader();
         printError(info: 'Failed with error: $e');
         Get.showErrorDialog(e.toString());
@@ -153,41 +139,6 @@ class ProfileController extends GetxController {
         );
         return;
       }
-      // try {
-      //   Get.showLoader();
-      //   await FirebaseAuth.instance.currentUser
-      //       ?.updateEmail(tcEmail.text)
-      //       .then((value) {
-      //     Get.hideLoader();
-      //     emailEditModeActive.value = false;
-      //     Get.showDialog('updateSuccess'.tr,
-      //         onConfirm: () => Get.back(), dialogType: DialogType.success);
-      //   });
-      // } on FirebaseAuthException catch (e) {
-      //   Get.hideLoader();
-      //   printError(info: 'Failed with Firebase error: $e');
-      //   if (e.code == 'requires-recent-login') {
-      //     Get.showErrorDialog(
-      //       'needLogin'.tr,
-      //       onConfirm: () async {
-      //         await FirebaseAuth.instance.signOut().then(
-      //           (v) {
-      //             Get.back();
-      //             Get.toNamed(Routes.SIGNIN);
-      //           },
-      //         ).catchError((e) {
-      //           Get.showErrorDialog(e.toString());
-      //         });
-      //       },
-      //     );
-      //   } else {
-      //     Get.showErrorDialog(e.toString());
-      //   }
-      // } on Exception catch (e) {
-      //   Get.hideLoader();
-      //   printError(info: 'Failed with error: $e');
-      //   Get.showErrorDialog(e.toString());
-      // }
     } else {
       emailEditModeActive.value = false;
     }
@@ -214,46 +165,19 @@ class ProfileController extends GetxController {
         );
         return;
       }
-
-      // try {
-      //   Get.showLoader();
-      //   await FirebaseAuth.instance.currentUser
-      //       ?.updatePassword(tcPass.text)
-      //       .then((value) {
-      //     Get.hideLoader();
-      //     passEditModeActive.value = false;
-      //     Get.showDialog('updateSuccess'.tr,
-      //         onConfirm: () => Get.back(), dialogType: DialogType.success);
-      //   });
-      // } on FirebaseAuthException catch (e) {
-      //   Get.hideLoader();
-      //   printError(info: 'Failed with Firebase error: $e');
-      //   if (e.code == 'requires-recent-login') {
-      //     Get.showErrorDialog(
-      //       'needLogin'.tr,
-      //       onConfirm: () async {
-      //         await FirebaseAuth.instance.signOut().then(
-      //           (v) {
-      //             Get.back();
-      //             Get.toNamed(Routes.SIGNIN);
-      //           },
-      //         ).catchError((e) {
-      //           Get.showErrorDialog(e.toString());
-      //         });
-      //       },
-      //     );
-      //   } else if (e.code == 'weak-password') {
-      //     Get.showErrorDialog('weakPassword'.tr);
-      //   } else {
-      //     Get.showErrorDialog(e.toString());
-      //   }
-      // } on Exception catch (e) {
-      //   Get.hideLoader();
-      //   printError(info: 'Failed with error: $e');
-      //   Get.showErrorDialog(e.toString());
-      // }
+      //TODO: Need to implement
     } else {
       passEditModeActive.value = false;
+    }
+  }
+
+  void getProfile(String id) {
+    printInfo(info: 'getProfile()>>> user_id: $id');
+    var query = 'user_id == \$0';
+    var profileResult =
+        _dbService.realm?.query<Profile>(query, [user.value!.id]);
+    if (profileResult != null && profileResult.isNotEmpty) {
+      profile.value = profileResult.single;
     }
   }
 }

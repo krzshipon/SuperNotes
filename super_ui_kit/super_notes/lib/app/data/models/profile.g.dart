@@ -11,14 +11,14 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
 
   Profile(
     ObjectId id,
-    ObjectId userId, {
+    String userId, {
     String name = '',
     String mobile = '',
     String email = '',
     String password = '',
-    String likeCount = '',
-    String downloadCount = '',
-    String uploadCount = '',
+    int likeCount = 0,
+    int downloadCount = 0,
+    int uploadCount = 0,
     String img = '',
     required DateTime updateDate,
     bool verified = false,
@@ -32,9 +32,9 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
         'mobile': '',
         'email': '',
         'password': '',
-        'like_count': '',
-        'download_count': '',
-        'upload_count': '',
+        'like_count': 0,
+        'download_count': 0,
+        'upload_count': 0,
         'img': '',
         'create_date': DateTime.now(),
         'update_date': DateTime.now(),
@@ -70,10 +70,9 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
   set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
 
   @override
-  ObjectId get userId =>
-      RealmObjectBase.get<ObjectId>(this, 'user_id') as ObjectId;
+  String get userId => RealmObjectBase.get<String>(this, 'user_id') as String;
   @override
-  set userId(ObjectId value) => RealmObjectBase.set(this, 'user_id', value);
+  set userId(String value) => RealmObjectBase.set(this, 'user_id', value);
 
   @override
   String get name => RealmObjectBase.get<String>(this, 'name') as String;
@@ -97,23 +96,21 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
   set password(String value) => RealmObjectBase.set(this, 'password', value);
 
   @override
-  String get likeCount =>
-      RealmObjectBase.get<String>(this, 'like_count') as String;
+  int get likeCount => RealmObjectBase.get<int>(this, 'like_count') as int;
   @override
-  set likeCount(String value) => RealmObjectBase.set(this, 'like_count', value);
+  set likeCount(int value) => RealmObjectBase.set(this, 'like_count', value);
 
   @override
-  String get downloadCount =>
-      RealmObjectBase.get<String>(this, 'download_count') as String;
+  int get downloadCount =>
+      RealmObjectBase.get<int>(this, 'download_count') as int;
   @override
-  set downloadCount(String value) =>
+  set downloadCount(int value) =>
       RealmObjectBase.set(this, 'download_count', value);
 
   @override
-  String get uploadCount =>
-      RealmObjectBase.get<String>(this, 'upload_count') as String;
+  int get uploadCount => RealmObjectBase.get<int>(this, 'upload_count') as int;
   @override
-  set uploadCount(String value) =>
+  set uploadCount(int value) =>
       RealmObjectBase.set(this, 'upload_count', value);
 
   @override
@@ -175,16 +172,15 @@ class Profile extends _Profile with RealmEntity, RealmObjectBase, RealmObject {
     return const SchemaObject(ObjectType.realmObject, Profile, 'Profile', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
-      SchemaProperty('userId', RealmPropertyType.objectid, mapTo: 'user_id'),
+      SchemaProperty('userId', RealmPropertyType.string, mapTo: 'user_id'),
       SchemaProperty('name', RealmPropertyType.string, indexed: true),
       SchemaProperty('mobile', RealmPropertyType.string, indexed: true),
       SchemaProperty('email', RealmPropertyType.string, indexed: true),
       SchemaProperty('password', RealmPropertyType.string),
-      SchemaProperty('likeCount', RealmPropertyType.string,
-          mapTo: 'like_count'),
-      SchemaProperty('downloadCount', RealmPropertyType.string,
+      SchemaProperty('likeCount', RealmPropertyType.int, mapTo: 'like_count'),
+      SchemaProperty('downloadCount', RealmPropertyType.int,
           mapTo: 'download_count'),
-      SchemaProperty('uploadCount', RealmPropertyType.string,
+      SchemaProperty('uploadCount', RealmPropertyType.int,
           mapTo: 'upload_count'),
       SchemaProperty('img', RealmPropertyType.string),
       SchemaProperty('favNotes', RealmPropertyType.string,

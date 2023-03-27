@@ -9,7 +9,7 @@ class _Profile {
   late ObjectId id;
 
   @MapTo('user_id')
-  late ObjectId userId;
+  late String userId;
   
   @Indexed()
   String name = '';
@@ -23,13 +23,13 @@ class _Profile {
   String password = '';
 
   @MapTo('like_count')
-  String likeCount = '';
+  int likeCount = 0;
 
   @MapTo('download_count')
-  String downloadCount = '';
+  int downloadCount = 0;
 
   @MapTo('upload_count')
-  String uploadCount = '';
+  int uploadCount = 0;
 
   String img = '';
 

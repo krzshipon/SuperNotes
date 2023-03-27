@@ -37,8 +37,7 @@ class ProfileView extends GetView<ProfileController> {
                         radius: 50,
                         foregroundColor: Get.theme.colorScheme.secondary,
                         backgroundColor: Get.theme.colorScheme.secondary,
-                        backgroundImage:
-                            const AssetImage(kProfileImage),
+                        backgroundImage: const AssetImage(kProfileImage),
                       ),
                     )
                   : Align(
@@ -47,8 +46,8 @@ class ProfileView extends GetView<ProfileController> {
                         radius: 50,
                         foregroundColor: Get.theme.colorScheme.secondary,
                         backgroundColor: Get.theme.colorScheme.secondary,
-                        backgroundImage:
-                            NetworkImage(controller.user.value!.profile.pictureUrl!),
+                        backgroundImage: NetworkImage(
+                            controller.user.value!.profile.pictureUrl!),
                       ),
                     ),
               verticalSpaceTiny,
@@ -58,7 +57,7 @@ class ProfileView extends GetView<ProfileController> {
                   children: [
                     (!controller.editModeActive.value)
                         ? CSText.title(
-                            controller.user.value?.profile.firstName ?? 'setName'.tr)
+                            controller.profile.value?.name ?? 'setName'.tr)
                         : Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(top: 10),
@@ -77,7 +76,8 @@ class ProfileView extends GetView<ProfileController> {
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CSText.label(controller.user.value?.profile.email ?? 'setEmail'.tr),
+                    CSText.label(
+                        controller.user.value?.profile.email ?? 'setEmail'.tr),
                   ],
                 ),
               ),
