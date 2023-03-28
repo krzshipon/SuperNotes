@@ -172,7 +172,7 @@ class ProfileView extends GetView<ProfileController> {
                                 left: kmCardMarginS, right: kmCardMarginS),
                             child: CSInputField(
                               maxLines: 1,
-                              controller: controller.tcPass,
+                              controller: controller.tcOldPass,
                               placeholder: 'pass'.tr,
                               isPassword: true,
                               errorText: (controller.passwordError.value)
@@ -189,7 +189,7 @@ class ProfileView extends GetView<ProfileController> {
                             left: kmCardMarginS, right: kmCardMarginS),
                         child: CSInputField(
                           maxLines: 1,
-                          controller: controller.tcPassConfirm,
+                          controller: controller.tcNewPass,
                           placeholder: 'confirmPassword'.tr,
                           enabled: true,
                           isPassword: true,

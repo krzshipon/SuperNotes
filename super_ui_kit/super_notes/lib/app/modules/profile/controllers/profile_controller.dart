@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
+import 'package:super_notes/app/data/models/note_req.dart';
 import 'package:super_notes/app/data/models/profile.dart';
 import 'package:super_notes/app/services/auth_service.dart';
 import 'package:super_notes/app/services/db_service.dart';
@@ -24,15 +25,15 @@ class ProfileController extends GetxController {
 
   final tcName = TextEditingController();
   final tcEmail = TextEditingController();
-  final tcPass = TextEditingController();
-  final tcPassConfirm = TextEditingController();
+  final tcOldPass = TextEditingController();
+  final tcNewPass = TextEditingController();
 
   @override
   void onClose() {
     tcEmail.dispose();
     tcName.dispose();
-    tcPass.dispose();
-    tcPassConfirm.dispose();
+    tcOldPass.dispose();
+    tcNewPass.dispose();
   }
 
   @override
@@ -50,24 +51,20 @@ class ProfileController extends GetxController {
     tcName.text = profile.value?.name ?? "";
     tcEmail.text = user.value?.profile.email ?? "";
 
-    tcPass.addListener(() {
-      if (tcPass.text.isEmpty) {
+    tcOldPass.addListener(() {
+      if (tcOldPass.text.isEmpty) {
         passwordError.value = false;
       } else {
-        passwordError.value = (tcPass.text.length < 8) ? true : false;
+        passwordError.value = (tcOldPass.text.length < 8) ? true : false;
       }
-
-      confirmPasswordError.value =
-          (tcPassConfirm.text.isEmpty || tcPassConfirm.text == tcPass.text)
-              ? false
-              : true;
     });
 
-    tcPassConfirm.addListener(() {
-      confirmPasswordError.value =
-          (tcPassConfirm.text.isEmpty || tcPassConfirm.text == tcPass.text)
-              ? false
-              : true;
+    tcNewPass.addListener(() {
+      if (tcNewPass.text.isEmpty) {
+        passwordError.value = false;
+      } else {
+        passwordError.value = (tcNewPass.text.length < 8) ? true : false;
+      }
     });
 
     tcEmail.addListener(() {
@@ -151,7 +148,7 @@ class ProfileController extends GetxController {
   }
 
   Future<void> updatePass() async {
-    if (tcPass.text.isNotEmpty) {
+    if (tcOldPass.text.isNotEmpty) {
       printInfo(info: 'Updating user password');
       if (passwordError.isTrue) {
         Get.showErrorDialog(
@@ -159,13 +156,13 @@ class ProfileController extends GetxController {
         );
         return;
       }
-      if (tcPass.text != tcPassConfirm.text || confirmPasswordError.isTrue) {
+      if (passwordError.isTrue) {
         Get.showErrorDialog(
           'confirmPassError'.tr,
         );
         return;
       }
-      //TODO: Need to implement
+      //_authService.changePassWord(tcOldPass.text, tcNewPass.text);
     } else {
       passEditModeActive.value = false;
     }

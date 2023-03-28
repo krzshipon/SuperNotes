@@ -23,6 +23,10 @@
             "part2": "Signup Now"
         }
     },
+    "note_req": {
+        "title": "Request for a Note",
+        "desc": "Which note you needed write in short."
+    },
     "skip": "Skip",
     "getStart": "Get Started",
     "signIn": "Sign In",

@@ -8,6 +8,10 @@
     "sign_in_google": "গুগল দিয়ে সাইন ইন করুন",
     "sign_in_apple": "অ্যাপল দিয়ে সাইন ইন করুন"
   },
+  "note_req": {
+    "title": "Request for a Note",
+    "desc": "Which note you needed write in short."
+  },
   "skip": "স্কিপ",
   "getStart": "শুরু করা যাক",
   "signIn": "সাইন ইন",

@@ -27,6 +27,8 @@ class LocaleKeys {
   static const auth_login_instruction_part2 = 'auth_login_instruction_part2';
   static const auth_signup_instruction_part1 = 'auth_signup_instruction_part1';
   static const auth_signup_instruction_part2 = 'auth_signup_instruction_part2';
+  static const note_req_title = 'note_req_title';
+  static const note_req_desc = 'note_req_desc';
   static const skip = 'skip';
   static const getStart = 'getStart';
   static const signIn = 'signIn';
@@ -119,6 +121,8 @@ class Locales {
     'auth_login_instruction_part2': 'Login',
     'auth_signup_instruction_part1': 'Not joined yet?',
     'auth_signup_instruction_part2': 'Signup Now',
+    'note_req_title': 'Request for a Note',
+    'note_req_desc': 'Which note you needed write in short.',
     'skip': 'Skip',
     'getStart': 'Get Started',
     'signIn': 'Sign In',
@@ -200,6 +204,8 @@ class Locales {
     'button_sign_in_fb': 'ফেসবুক দিয়ে সাইন ইন করুন',
     'button_sign_in_google': 'গুগল দিয়ে সাইন ইন করুন',
     'button_sign_in_apple': 'অ্যাপল দিয়ে সাইন ইন করুন',
+    'note_req_title': 'Request for a Note',
+    'note_req_desc': 'Which note you needed write in short.',
     'skip': 'স্কিপ',
     'getStart': 'শুরু করা যাক',
     'signIn': 'সাইন ইন',

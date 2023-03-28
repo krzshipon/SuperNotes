@@ -32,18 +32,15 @@ class AuthService extends GetxService {
     return loggedInUser;
   }
 
-  Future<bool> changePassWord(String oldPassWord, String newPassWord) async {
+  Future<void> changePassWord(String oldPassWord, String newPassWord) async {
     final Map<String, dynamic> args = {
       "oldpassword": oldPassWord,
       "newpassword": newPassWord
     };
     var result =
         await _app.currentUser?.functions.call(kfChangeUserpassword, [args]);
-    if (result['success']) {
-      return true;
-    } else {
-      return false;
-    }
+    printInfo(info: '${result['success']}');
+    //
   }
 
   Future<void> logOutUser() async {

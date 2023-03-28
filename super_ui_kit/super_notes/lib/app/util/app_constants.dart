@@ -30,3 +30,6 @@ const kCurrentLangCode = "kCurrentLangCode";
 //Selector
 const kOtherSelection = 'Other';
 const kSelectionInstruction = 'Please Select';
+
+//Note Request
+const kNoteReqDateFormat = "HH:mm d MMM yy";
