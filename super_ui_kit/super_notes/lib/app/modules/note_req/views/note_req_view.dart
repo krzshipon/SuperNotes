@@ -33,6 +33,8 @@ class NoteReqView extends GetView<NoteReqController> {
             onTap: () => controller.submitReq(),
           ),
           verticalSpaceMedium,
+          const CSText.title('Request List'),
+          verticalSpaceTiny,
           Obx(
             (() => (controller.requests.isNotEmpty)
                 ? Expanded(

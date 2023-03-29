@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:super_notes/app/extentions/string_ext.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import 'app/data/asset_keys.dart';
@@ -19,14 +20,18 @@ Future<void> main() async {
   ///Init DB
   await GetStorage.init();
 
-  /// AWAIT SERVICES INITIALIZATION.
+  ///AWAIT SERVICES INITIALIZATION.
   await initServices();
+
+  //App language
+  var appLangCode = GetStorage().read<String>(kCurrentLangCode);
+  var locale = appLangCode?.getLocaleFromCode() ?? kDefaultLocale;
 
   runApp(
     GetMaterialApp(
       title: 'app_name'.tr,
       translationsKeys: AppTranslation.translations,
-      locale: kDefaultLocale,
+      locale: locale,
       fallbackLocale: kFallbackLocale,
       initialRoute: Get.find<AuthService>().currentUser.value == null
           ? AppPages.INITIAL
