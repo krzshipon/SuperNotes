@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
-import 'package:super_notes/app/data/data_keys.dart';
 import 'package:super_notes/app/data/models/note.dart';
+import 'package:super_notes/app/data/models/profile.dart';
 import 'package:super_notes/app/routes/app_pages.dart';
 import 'package:super_notes/app/services/auth_service.dart';
 import 'package:super_notes/app/services/db_service.dart';
@@ -16,6 +16,7 @@ class NoteController extends GetxController {
 
   final note = Note(ObjectId(), updatedAt: DateTime.now()).obs;
   final currentPreviewIdx = 0.obs;
+  Profile? profile;
 
   @override
   void onInit() {
@@ -24,14 +25,10 @@ class NoteController extends GetxController {
     if (noteId != null) {
       getNote(ObjectId.fromHexString(noteId));
     }
-    var data = _authService.currentUser.value?.customData;
-    if (data != null) {
-      var list = data[kUserFavouriteList] as List<dynamic>;
-      if (list.contains(noteId)) {
-        note.value.isFav = true;
-      } else {
-        note.value.isFav = false;
-      }
+
+    var user = _authService.currentUser;
+    if (user.value != null) {
+      getProfile(user.value!.id);
     }
   }
 
@@ -51,24 +48,12 @@ class NoteController extends GetxController {
 
   Future<void> updateLikeStatus() async {
     Get.showLoader();
-    var user = _authService.currentUser.value;
-    List<dynamic> list = [];
-    if (user != null) {
-      var customData = user.customData;
+    _dbService.realm?.write(() {
       if (note.value.isFav) {
-        if (customData != null) {
-          list = customData[kUserFavouriteList] as List<dynamic>;
-          list.remove(note.value.id.hexString);
-        }
+        profile?.favNotes.remove(note.value.id.hexString);
       } else {
-        list = customData[kUserFavouriteList] as List<dynamic>;
-        list.add(note.value.id.hexString);
+        profile?.favNotes.add(note.value.id.hexString);
       }
-    }
-
-    final updatedCustomUserData = {kUserFavouriteList: list};
-    await user?.functions.call(kfWriteUserData, [updatedCustomUserData]);
-    await _authService.refreshUserData().then((value) {
       note.value.isFav = !note.value.isFav;
       note.refresh();
     });
@@ -85,5 +70,17 @@ class NoteController extends GetxController {
   forwardPreview() {
     currentPreviewIdx.value =
         (currentPreviewIdx.value + 1) % note.value.previews.length;
+  }
+
+  void getProfile(String id) {
+    printInfo(info: 'getProfile()>>> user_id: $id');
+    var query = 'user_id == \$0';
+    var profileResult = _dbService.realm?.query<Profile>(query, [id]);
+    if (profileResult != null && profileResult.isNotEmpty) {
+      profile = profileResult.single;
+      if (profile != null) {
+        note.value.isFav = profile!.favNotes.contains(note.value.id.hexString);
+      }
+    }
   }
 }
