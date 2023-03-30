@@ -70,12 +70,14 @@ class Review extends $Review with RealmEntity, RealmObjectBase, RealmObject {
   Review(
     ObjectId id, {
     ObjectId? noteId,
+    double value = 0,
     BasicUser? user,
     String text = '',
     required DateTime updatedAt,
   }) {
     if (!_defaultsSet) {
       _defaultsSet = RealmObjectBase.setDefaults<Review>({
+        'value': 0,
         'text': '',
         'created_at': DateTime.now(),
         'updated_at': DateTime.now(),
@@ -83,6 +85,7 @@ class Review extends $Review with RealmEntity, RealmObjectBase, RealmObject {
     }
     RealmObjectBase.set(this, '_id', id);
     RealmObjectBase.set(this, 'note_id', noteId);
+    RealmObjectBase.set(this, 'value', value);
     RealmObjectBase.set(this, 'user', user);
     RealmObjectBase.set(this, 'text', text);
     RealmObjectBase.set(this, 'created_at', createdAt);
@@ -101,6 +104,11 @@ class Review extends $Review with RealmEntity, RealmObjectBase, RealmObject {
       RealmObjectBase.get<ObjectId>(this, 'note_id') as ObjectId?;
   @override
   set noteId(ObjectId? value) => RealmObjectBase.set(this, 'note_id', value);
+
+  @override
+  double get value => RealmObjectBase.get<double>(this, 'value') as double;
+  @override
+  set value(double value) => RealmObjectBase.set(this, 'value', value);
 
   @override
   BasicUser? get user =>
@@ -144,6 +152,7 @@ class Review extends $Review with RealmEntity, RealmObjectBase, RealmObject {
           mapTo: '_id', primaryKey: true),
       SchemaProperty('noteId', RealmPropertyType.objectid,
           mapTo: 'note_id', optional: true),
+      SchemaProperty('value', RealmPropertyType.double),
       SchemaProperty('user', RealmPropertyType.object,
           optional: true, linkTarget: 'BasicUser'),
       SchemaProperty('text', RealmPropertyType.string),

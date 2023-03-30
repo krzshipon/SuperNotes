@@ -3,6 +3,23 @@ import 'package:super_notes/app/data/models/review.dart';
 
 part 'note.g.dart';
 
+@RealmModel(ObjectType.embeddedObject)
+class _Rating {
+  double rating = 0;
+  @MapTo("rating_count")
+  int ratingCount = 0;
+  @MapTo("one_star_count")
+  int oneStarCount = 0;
+  @MapTo("two_star_count")
+  int twoStarCount = 0;
+  @MapTo("three_star_count")
+  int threeStarCount = 0;
+  @MapTo("four_star_count")
+  int fourStarCount = 0;
+  @MapTo("five_star_count")
+  int fiveStarCount = 0;
+}
+
 @RealmModel()
 class _Note {
   @PrimaryKey()
@@ -43,4 +60,6 @@ class _Note {
   bool verified = false;
   @Ignored()
   bool isFav = false;
+  @MapTo("user_rating")
+  late _Rating? userRating;
 }

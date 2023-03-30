@@ -1,5 +1,8 @@
+import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:super_notes/app/data/asset_keys.dart';
+import 'package:super_notes/app/modules/note/views/rating_summary_card.dart';
+import 'package:super_notes/app/modules/note/views/review_item.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../controllers/note_controller.dart';
@@ -115,189 +118,45 @@ class NoteView extends GetView<NoteController> {
                   ],
                 ),
                 verticalSpaceRegular,
-                Align(
-                  alignment: Alignment.center,
-                  child: CSText.label('reviews'.tr),
-                ),
-                CSCard(
-                  cardType: CSCardType.item,
-                  elevation: 0,
-                  childrens: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: CSText.title("4.5/5")),
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: CSText.label('based on 100 reviews')),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    size: 20,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    size: 20,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    size: 20,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    size: 20,
-                                  ),
-                                  Icon(
-                                    Icons.star_half,
-                                    size: 20,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        horizontalSpaceSmall,
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  CSText("5 star"),
-                                  horizontalSpaceTiny,
-                                  SizedBox(
-                                      width: 50,
-                                      height: 5,
-                                      child: LinearProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(
-                                            Colors.blueAccent),
-                                        backgroundColor: Colors.white,
-                                        value: 0.8,
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  CSText("4 star"),
-                                  horizontalSpaceTiny,
-                                  SizedBox(
-                                      width: 50,
-                                      height: 5,
-                                      child: LinearProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(
-                                            Colors.blueAccent),
-                                        backgroundColor: Colors.white,
-                                        value: 0.6,
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  CSText("3 star"),
-                                  horizontalSpaceTiny,
-                                  SizedBox(
-                                      width: 50,
-                                      height: 5,
-                                      child: LinearProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(
-                                            Colors.blueAccent),
-                                        backgroundColor: Colors.white,
-                                        value: 0.2,
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  CSText("2 star"),
-                                  horizontalSpaceTiny,
-                                  SizedBox(
-                                      width: 50,
-                                      height: 5,
-                                      child: LinearProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(
-                                            Colors.blueAccent),
-                                        backgroundColor: Colors.white,
-                                        value: 0.1,
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  CSText("1 star"),
-                                  horizontalSpaceTiny,
-                                  SizedBox(
-                                      width: 50,
-                                      height: 5,
-                                      child: LinearProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(
-                                            Colors.blueAccent),
-                                        backgroundColor: Colors.white,
-                                        value: 0.0,
-                                      )),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                if (controller.note.value.topReviews.isNotEmpty)
+                  Align(
+                    alignment: Alignment.center,
+                    child: CSText.label('reviews'.tr),
+                  ),
+                if (controller.note.value.userRating != null)
+                  RatingSummaryCardView(controller.note.value.userRating!),
                 verticalSpaceRegular,
                 Align(
                   alignment: Alignment.center,
-                  child: CSText.label('User Reviews'.tr),
+                  child: CSText.title('User Reviews'.tr),
                 ),
-                CSCard(
-                  cardType: CSCardType.item,
-                  childrens: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: CircleAvatar(
-                              radius: 10,
-                              foregroundColor: Get.theme.colorScheme.secondary,
-                              backgroundColor: Get.theme.colorScheme.secondary,
-                              backgroundImage: const AssetImage(kProfileImage),
-                            ),
+                Obx(
+                  (() => (controller.note.value.topReviews.isNotEmpty)
+                      ? Expanded(
+                          child: LiveList.options(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemBuilder:
+                                animationItemBuilder(((index) => ReviewItem(
+                                      controller.note.value.topReviews[index],
+                                    ))),
+                            itemCount: controller.note.value.topReviews.length,
+                            options: kAnimationOptions,
                           ),
-                        ),
-                        Expanded(
-                          flex: 5,
+                        )
+                      : const Padding(
+                          padding: EdgeInsets.only(top: 10),
                           child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: CSText.label('29hours ago')),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: CSText('4.5')),
-                        ),
-                      ],
-                    ),
-                    verticalSpaceRegular,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CSText(
-                            'This is a nice note',
-                            maxLines: 4,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                            alignment: Alignment.center,
+                            child: CSText.label("No review yet!"),
+                          ))),
                 ),
-                verticalSpaceTiny,
-                
+                verticalSpaceRegular,
+                CSButton.outline(
+                  title: "Add a review",
+                  onTap: () => controller.addReview(),
+                ),
+                verticalSpaceRegular
               ],
             ),
           ),

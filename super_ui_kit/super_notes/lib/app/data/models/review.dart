@@ -15,9 +15,9 @@ class $Review {
   @PrimaryKey()
   @MapTo('_id')
   late ObjectId id;
-
   @MapTo('note_id')
   ObjectId? noteId;
+  double value = 0;
   late _BasicUser? user;
   String text = '';
   @MapTo('created_at')

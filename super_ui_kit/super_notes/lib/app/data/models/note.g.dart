@@ -6,6 +6,115 @@ part of 'note.dart';
 // RealmObjectGenerator
 // **************************************************************************
 
+class Rating extends _Rating with RealmEntity, RealmObjectBase, EmbeddedObject {
+  static var _defaultsSet = false;
+
+  Rating({
+    double rating = 0,
+    int ratingCount = 0,
+    int oneStarCount = 0,
+    int twoStarCount = 0,
+    int threeStarCount = 0,
+    int fourStarCount = 0,
+    int fiveStarCount = 0,
+  }) {
+    if (!_defaultsSet) {
+      _defaultsSet = RealmObjectBase.setDefaults<Rating>({
+        'rating': 0,
+        'rating_count': 0,
+        'one_star_count': 0,
+        'two_star_count': 0,
+        'three_star_count': 0,
+        'four_star_count': 0,
+        'five_star_count': 0,
+      });
+    }
+    RealmObjectBase.set(this, 'rating', rating);
+    RealmObjectBase.set(this, 'rating_count', ratingCount);
+    RealmObjectBase.set(this, 'one_star_count', oneStarCount);
+    RealmObjectBase.set(this, 'two_star_count', twoStarCount);
+    RealmObjectBase.set(this, 'three_star_count', threeStarCount);
+    RealmObjectBase.set(this, 'four_star_count', fourStarCount);
+    RealmObjectBase.set(this, 'five_star_count', fiveStarCount);
+  }
+
+  Rating._();
+
+  @override
+  double get rating => RealmObjectBase.get<double>(this, 'rating') as double;
+  @override
+  set rating(double value) => RealmObjectBase.set(this, 'rating', value);
+
+  @override
+  int get ratingCount => RealmObjectBase.get<int>(this, 'rating_count') as int;
+  @override
+  set ratingCount(int value) =>
+      RealmObjectBase.set(this, 'rating_count', value);
+
+  @override
+  int get oneStarCount =>
+      RealmObjectBase.get<int>(this, 'one_star_count') as int;
+  @override
+  set oneStarCount(int value) =>
+      RealmObjectBase.set(this, 'one_star_count', value);
+
+  @override
+  int get twoStarCount =>
+      RealmObjectBase.get<int>(this, 'two_star_count') as int;
+  @override
+  set twoStarCount(int value) =>
+      RealmObjectBase.set(this, 'two_star_count', value);
+
+  @override
+  int get threeStarCount =>
+      RealmObjectBase.get<int>(this, 'three_star_count') as int;
+  @override
+  set threeStarCount(int value) =>
+      RealmObjectBase.set(this, 'three_star_count', value);
+
+  @override
+  int get fourStarCount =>
+      RealmObjectBase.get<int>(this, 'four_star_count') as int;
+  @override
+  set fourStarCount(int value) =>
+      RealmObjectBase.set(this, 'four_star_count', value);
+
+  @override
+  int get fiveStarCount =>
+      RealmObjectBase.get<int>(this, 'five_star_count') as int;
+  @override
+  set fiveStarCount(int value) =>
+      RealmObjectBase.set(this, 'five_star_count', value);
+
+  @override
+  Stream<RealmObjectChanges<Rating>> get changes =>
+      RealmObjectBase.getChanges<Rating>(this);
+
+  @override
+  Rating freeze() => RealmObjectBase.freezeObject<Rating>(this);
+
+  static SchemaObject get schema => _schema ??= _initSchema();
+  static SchemaObject? _schema;
+  static SchemaObject _initSchema() {
+    RealmObjectBase.registerFactory(Rating._);
+    return const SchemaObject(ObjectType.embeddedObject, Rating, 'Rating', [
+      SchemaProperty('rating', RealmPropertyType.double),
+      SchemaProperty('ratingCount', RealmPropertyType.int,
+          mapTo: 'rating_count'),
+      SchemaProperty('oneStarCount', RealmPropertyType.int,
+          mapTo: 'one_star_count'),
+      SchemaProperty('twoStarCount', RealmPropertyType.int,
+          mapTo: 'two_star_count'),
+      SchemaProperty('threeStarCount', RealmPropertyType.int,
+          mapTo: 'three_star_count'),
+      SchemaProperty('fourStarCount', RealmPropertyType.int,
+          mapTo: 'four_star_count'),
+      SchemaProperty('fiveStarCount', RealmPropertyType.int,
+          mapTo: 'five_star_count'),
+    ]);
+  }
+}
+
 class Note extends _Note with RealmEntity, RealmObjectBase, RealmObject {
   static var _defaultsSet = false;
 
@@ -22,6 +131,7 @@ class Note extends _Note with RealmEntity, RealmObjectBase, RealmObject {
     int ratingCount = 0,
     required DateTime updatedAt,
     bool verified = false,
+    Rating? userRating,
     Iterable<String> previews = const [],
     Iterable<ObjectId> categories = const [],
     Iterable<Review> topReviews = const [],
@@ -55,6 +165,7 @@ class Note extends _Note with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'created_at', createdAt);
     RealmObjectBase.set(this, 'updated_at', updatedAt);
     RealmObjectBase.set(this, 'verified', verified);
+    RealmObjectBase.set(this, 'user_rating', userRating);
     RealmObjectBase.set<RealmList<String>>(
         this, 'previews', RealmList<String>(previews));
     RealmObjectBase.set<RealmList<ObjectId>>(
@@ -164,6 +275,13 @@ class Note extends _Note with RealmEntity, RealmObjectBase, RealmObject {
   set verified(bool value) => RealmObjectBase.set(this, 'verified', value);
 
   @override
+  Rating? get userRating =>
+      RealmObjectBase.get<Rating>(this, 'user_rating') as Rating?;
+  @override
+  set userRating(covariant Rating? value) =>
+      RealmObjectBase.set(this, 'user_rating', value);
+
+  @override
   Stream<RealmObjectChanges<Note>> get changes =>
       RealmObjectBase.getChanges<Note>(this);
 
@@ -204,6 +322,8 @@ class Note extends _Note with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('updatedAt', RealmPropertyType.timestamp,
           mapTo: 'updated_at'),
       SchemaProperty('verified', RealmPropertyType.bool, indexed: true),
+      SchemaProperty('userRating', RealmPropertyType.object,
+          mapTo: 'user_rating', optional: true, linkTarget: 'Rating'),
     ]);
   }
 }

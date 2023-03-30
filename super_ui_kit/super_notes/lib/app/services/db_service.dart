@@ -34,6 +34,7 @@ class DbService extends GetxService {
         BasicUser.schema,
         Feedback.schema,
         NoteReq.schema,
+        Rating.schema,
       ]);
       realm = Realm(conf);
       // Check if the subscription already exists before adding

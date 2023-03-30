@@ -83,4 +83,6 @@ class NoteController extends GetxController {
       }
     }
   }
+
+  addReview() {}
 }
