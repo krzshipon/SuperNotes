@@ -2,6 +2,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/models/note.dart';
 import 'package:super_notes/app/data/models/profile.dart';
+import 'package:super_notes/app/modules/review/controllers/review_controller.dart';
+import 'package:super_notes/app/modules/review/views/review_view.dart';
 import 'package:super_notes/app/routes/app_pages.dart';
 import 'package:super_notes/app/services/auth_service.dart';
 import 'package:super_notes/app/services/db_service.dart';
@@ -84,5 +86,10 @@ class NoteController extends GetxController {
     }
   }
 
-  addReview() {}
+  addReview() {
+    Get.lazyPut<ReviewController>(
+      () => ReviewController(),
+    );
+    Get.bottomSheet(ReviewView());
+  }
 }

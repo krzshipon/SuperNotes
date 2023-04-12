@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
-import 'package:super_notes/app/data/data_keys.dart';
 import 'package:super_notes/app/data/models/note.dart';
+import 'package:super_notes/app/data/models/profile.dart';
 import 'package:super_notes/app/routes/app_pages.dart';
 import 'package:super_notes/app/services/auth_service.dart';
 import 'package:super_notes/app/services/db_service.dart';
@@ -37,10 +37,13 @@ class FavouriteController extends GetxController {
   }
 
   void geFavNotes() {
-    var data = _authService.currentUser.value?.customData;
-    if (data != null) {
-      if (data[kUserFavouriteList] is List<dynamic>) {
-        var list = data[kUserFavouriteList] as List<dynamic>;
+    if (_authService.currentUser.value != null) {
+      var query = 'user_id == \$0';
+      var profileResult = _dbService.realm
+          ?.query<Profile>(query, [_authService.currentUser.value!.id]);
+      if (profileResult != null && profileResult.isNotEmpty) {
+        var profile = profileResult.single;
+        var list = profile.favNotes;
         printInfo(info: "Favourite notes count: ${list.length}");
         for (var element in list) {
           printInfo(info: "Favourite note id: $element");

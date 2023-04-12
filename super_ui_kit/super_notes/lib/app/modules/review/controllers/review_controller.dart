@@ -34,31 +34,37 @@ class ReviewController extends GetxController {
     if (tcReview.text.isNotEmpty) {
       //Get the note
       var noteController = Get.find<NoteController>();
+
+      //Update precalculated data
+      var rating = noteController.note.value.userRating ?? Rating();
+      switch (rate.value) {
+        case 1:
+          rating.oneStarCount++;
+          break;
+        case 2:
+          rating.twoStarCount++;
+          break;
+        case 3:
+          rating.threeStarCount++;
+          break;
+        case 4:
+          rating.fourStarCount++;
+          break;
+        case 5:
+          rating.fiveStarCount++;
+          break;
+      }
+
+      rating.rating = ((rating.rating * rating.ratingCount) + rate.value) /
+          (rating.ratingCount + 1);
+
+      rating.ratingCount++;
+
       _dbService.realm?.write(() {
         //Transfer rating if top ratings size exceed
         if (noteController.note.value.topReviews.length > 4) {
           var review = noteController.note.value.topReviews.removeLast();
           _dbService.realm?.add<Review>(review);
-        }
-        //Update precalculated data
-        var rating = noteController.note.value.userRating ?? Rating();
-        switch (rate.value) {
-          case 1:
-            rating.oneStarCount++;
-            //rating.
-            break;
-          case 2:
-            rating.twoStarCount++;
-            break;
-          case 3:
-            rating.threeStarCount++;
-            break;
-          case 4:
-            rating.fourStarCount++;
-            break;
-          case 5:
-            rating.fiveStarCount++;
-            break;
         }
 
         //add in top rating
@@ -76,6 +82,8 @@ class ReviewController extends GetxController {
             ),
           ),
         );
+
+        noteController.note.value.userRating = rating;
       });
     }
   }

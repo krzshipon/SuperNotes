@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
-import 'package:super_notes/app/data/models/note_req.dart';
 import 'package:super_notes/app/data/models/profile.dart';
 import 'package:super_notes/app/services/auth_service.dart';
 import 'package:super_notes/app/services/db_service.dart';
