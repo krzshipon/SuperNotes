@@ -44,7 +44,8 @@ class DbService extends GetxService {
       final introQuery = realm!.all<Intro>();
       final feedbackQuery = realm!.query<Feedback>('user_id == \$0', [user.id]);
       final noteReqQuery = realm!.query<NoteReq>('user_id == \$0', [user.id]);
-      final ratingQuery = realm!.all<NoteReq>();
+      //final ratingQuery = realm!.all<Rating>();
+      final reviewQuery = realm!.all<Review>();
 
       final userSub = realm?.subscriptions.findByName('profiles');
       final categorySub = realm?.subscriptions.findByName('categories');
@@ -53,6 +54,7 @@ class DbService extends GetxService {
       final feedbackSub = realm?.subscriptions.findByName('feedbacks');
       final noteReqSub = realm?.subscriptions.findByName('note_reqs');
       final ratingSub = realm?.subscriptions.findByName('ratings');
+      final reviewSub = realm?.subscriptions.findByName('reviews');
 
       // if (userTodoSub == null) {
       realm?.subscriptions.update((mutableSubscriptions) {
@@ -65,7 +67,8 @@ class DbService extends GetxService {
         mutableSubscriptions.add(feedbackQuery,
             name: 'feedbacks', update: true);
         mutableSubscriptions.add(noteReqQuery, name: 'note_reqs', update: true);
-        mutableSubscriptions.add(ratingQuery, name: 'ratings', update: true);
+        mutableSubscriptions.add(reviewQuery, name: 'reviews', update: true);
+        //mutableSubscriptions.add(ratingQuery, name: 'ratings', update: true);
       });
       // }
     } else {

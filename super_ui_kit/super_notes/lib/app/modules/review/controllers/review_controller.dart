@@ -37,7 +37,9 @@ class ReviewController extends GetxController {
 
       //Update precalculated data
       var rating = noteController.note.value.userRating ?? Rating();
-      switch (rate.value) {
+
+      _dbService.realm?.  write(() {
+        switch (rate.value) {
         case 1:
           rating.oneStarCount++;
           break;
@@ -60,7 +62,6 @@ class ReviewController extends GetxController {
 
       rating.ratingCount++;
 
-      _dbService.realm?.write(() {
         //Transfer rating if top ratings size exceed
         if (noteController.note.value.topReviews.length > 4) {
           var review = noteController.note.value.topReviews.removeLast();

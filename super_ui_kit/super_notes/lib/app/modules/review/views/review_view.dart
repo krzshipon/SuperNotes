@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../controllers/review_controller.dart';
@@ -13,7 +14,7 @@ class ReviewView extends GetView<ReviewController> {
         topRight: Radius.circular(20),
       ),
       child: Container(
-        height: Get.height / 3,
+        height: Get.height / 2.5,
         color: Get.theme.colorScheme.background,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -21,7 +22,23 @@ class ReviewView extends GetView<ReviewController> {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: CSText.title('sendFeedback'.tr),
+                child: CSText.title('sendReview'.tr),
+              ),
+              verticalSpaceRegular,
+              RatingBar.builder(
+                initialRating: 5,
+                minRating: 0,
+                direction: Axis.horizontal,
+                allowHalfRating: false,
+                itemCount: 5,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Get.theme.colorScheme.secondary,
+                ),
+                onRatingUpdate: (rating) {
+                  controller.rate.value = rating.toInt();
+                },
               ),
               verticalSpaceRegular,
               CSInputField(
