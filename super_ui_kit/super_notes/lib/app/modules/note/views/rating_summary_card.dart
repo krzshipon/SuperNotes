@@ -59,8 +59,9 @@ class RatingSummaryCardView extends GetView {
                             valueColor: AlwaysStoppedAnimation(
                                 Get.theme.colorScheme.secondary),
                             backgroundColor: Get.theme.colorScheme.onSecondary,
-                            value:
-                                (_rating.fiveStarCount / _rating.ratingCount),
+                            value: (_rating.ratingCount == 0)
+                                ? 0
+                                : (_rating.fiveStarCount / _rating.ratingCount),
                           )),
                     ],
                   ),
@@ -75,8 +76,9 @@ class RatingSummaryCardView extends GetView {
                             valueColor: AlwaysStoppedAnimation(
                                 Get.theme.colorScheme.secondary),
                             backgroundColor: Get.theme.colorScheme.onSecondary,
-                            value:
-                                (_rating.fourStarCount / _rating.ratingCount),
+                            value: (_rating.ratingCount == 0)
+                                ? 0
+                                : (_rating.fourStarCount / _rating.ratingCount),
                           )),
                     ],
                   ),
@@ -91,8 +93,10 @@ class RatingSummaryCardView extends GetView {
                             valueColor: AlwaysStoppedAnimation(
                                 Get.theme.colorScheme.secondary),
                             backgroundColor: Get.theme.colorScheme.onSecondary,
-                            value:
-                                (_rating.threeStarCount / _rating.ratingCount),
+                            value: (_rating.ratingCount == 0)
+                                ? 0
+                                : (_rating.threeStarCount /
+                                    _rating.ratingCount),
                           )),
                     ],
                   ),
@@ -107,7 +111,9 @@ class RatingSummaryCardView extends GetView {
                             valueColor: AlwaysStoppedAnimation(
                                 Get.theme.colorScheme.secondary),
                             backgroundColor: Get.theme.colorScheme.onSecondary,
-                            value: (_rating.twoStarCount / _rating.ratingCount),
+                            value: (_rating.ratingCount == 0)
+                                ? 0
+                                : (_rating.twoStarCount / _rating.ratingCount),
                           )),
                     ],
                   ),
@@ -122,7 +128,9 @@ class RatingSummaryCardView extends GetView {
                             valueColor: AlwaysStoppedAnimation(
                                 Get.theme.colorScheme.secondary),
                             backgroundColor: Get.theme.colorScheme.onSecondary,
-                            value: (_rating.oneStarCount / _rating.ratingCount),
+                            value: (_rating.ratingCount == 0)
+                                ? 0
+                                : (_rating.oneStarCount / _rating.ratingCount),
                           )),
                     ],
                   ),

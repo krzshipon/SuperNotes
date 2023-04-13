@@ -13,7 +13,7 @@ class ReviewController extends GetxController {
 
   final tcReview = TextEditingController();
 
-  final rate = 0.obs;
+  final rate = 5.obs;
 
   @override
   void onInit() {
@@ -35,32 +35,41 @@ class ReviewController extends GetxController {
       //Get the note
       var noteController = Get.find<NoteController>();
 
+      var rat = noteController.note.value.userRating;
       //Update precalculated data
-      var rating = noteController.note.value.userRating ?? Rating();
+      var rating = Rating(
+        rating: rat?.rating ?? 0.0,
+        ratingCount: rat?.ratingCount ?? 0,
+        fiveStarCount: rat?.fiveStarCount ?? 0,
+        fourStarCount: rat?.fourStarCount ?? 0,
+        threeStarCount: rat?.threeStarCount ?? 0,
+        twoStarCount: rat?.twoStarCount ?? 0,
+        oneStarCount: rat?.oneStarCount ?? 0,
+      );
 
-      _dbService.realm?.  write(() {
+      _dbService.realm?.write(() {
         switch (rate.value) {
-        case 1:
-          rating.oneStarCount++;
-          break;
-        case 2:
-          rating.twoStarCount++;
-          break;
-        case 3:
-          rating.threeStarCount++;
-          break;
-        case 4:
-          rating.fourStarCount++;
-          break;
-        case 5:
-          rating.fiveStarCount++;
-          break;
-      }
+          case 1:
+            rating.oneStarCount++;
+            break;
+          case 2:
+            rating.twoStarCount++;
+            break;
+          case 3:
+            rating.threeStarCount++;
+            break;
+          case 4:
+            rating.fourStarCount++;
+            break;
+          case 5:
+            rating.fiveStarCount++;
+            break;
+        }
 
-      rating.rating = ((rating.rating * rating.ratingCount) + rate.value) /
-          (rating.ratingCount + 1);
+        rating.rating = ((rating.rating * rating.ratingCount) + rate.value) /
+            (rating.ratingCount + 1);
 
-      rating.ratingCount++;
+        rating.ratingCount++;
 
         //Transfer rating if top ratings size exceed
         if (noteController.note.value.topReviews.length > 4) {
@@ -72,6 +81,7 @@ class ReviewController extends GetxController {
         noteController.note.value.topReviews.add(
           Review(
             ObjectId(),
+            value: rate.value.toDouble(),
             updatedAt: DateTime.now(),
             text: tcReview.text,
             user: BasicUser(
@@ -85,7 +95,9 @@ class ReviewController extends GetxController {
         );
 
         noteController.note.value.userRating = rating;
+        noteController.note.refresh();
       });
     }
+    Get.back();
   }
 }

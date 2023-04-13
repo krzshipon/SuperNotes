@@ -42,13 +42,13 @@ class ReviewItem extends GetView {
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 6,
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: CSText.label("${_review.updatedAt.passedTime()} ago")),
             ),
             Expanded(
-              flex: 3,
+              flex: 4,
               child: StarRating(_review.value),
             ),
           ],

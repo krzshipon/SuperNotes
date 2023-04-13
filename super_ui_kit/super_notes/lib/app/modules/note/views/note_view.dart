@@ -124,7 +124,10 @@ class NoteView extends GetView<NoteController> {
                     child: CSText.label('reviews'.tr),
                   ),
                 if (controller.note.value.userRating != null)
-                  RatingSummaryCardView(controller.note.value.userRating!),
+                  Obx(
+                    () => RatingSummaryCardView(
+                        controller.note.value.userRating!),
+                  ),
                 verticalSpaceRegular,
                 Align(
                   alignment: Alignment.center,
