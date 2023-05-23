@@ -32,11 +32,6 @@ class NoteReqController extends GetxController {
     });
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void submitReq() {
     var text = tcDesc.text;
     if (text.isNotEmpty) {

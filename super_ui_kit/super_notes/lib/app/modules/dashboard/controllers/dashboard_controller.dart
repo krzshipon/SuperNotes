@@ -1,9 +1,9 @@
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:super_notes/app/data/models/category.dart';
 import 'package:super_notes/app/routes/app_pages.dart';
 import 'package:super_notes/app/services/db_service.dart';
 import 'package:super_notes/app/util/app_constants.dart';
+import 'package:super_ui_kit/super_ui_kit.dart';
 
 class DashboardController extends GetxController {
   final _dbService = Get.find<DbService>();

@@ -15,21 +15,6 @@ class ReviewController extends GetxController {
 
   final rate = 5.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   saveReview() {
     if (tcReview.text.isNotEmpty) {
       //Get the note

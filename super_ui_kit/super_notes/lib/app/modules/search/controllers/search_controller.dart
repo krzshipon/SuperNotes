@@ -16,11 +16,6 @@ class SearchController extends GetxController {
   final searchKeyword = ''.obs;
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void onReady() {
     super.onReady();
     tcSearch.addListener(() {

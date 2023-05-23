@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';

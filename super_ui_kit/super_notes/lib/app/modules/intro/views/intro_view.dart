@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
+import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../controllers/intro_controller.dart';
 

@@ -1,9 +1,11 @@
-import 'package:get/get.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:super_notes/app/extentions/string_ext.dart';
 import 'package:super_notes/app/modules/feedback/controllers/feedback_controller.dart';
 import 'package:super_notes/app/modules/feedback/views/feedback_view.dart';
 import 'package:super_notes/app/routes/app_pages.dart';
 import 'package:super_notes/app/services/auth_service.dart';
+import 'package:super_ui_kit/super_ui_kit.dart';
 
 class SettingController extends GetxController {
   final AuthService _authService = Get.find<AuthService>();

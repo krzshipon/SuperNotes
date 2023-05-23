@@ -46,7 +46,7 @@ Future<void> main() async {
 }
 
 initServices() async {
-  ///Initalizing.. realm service
+  ///Initializing.. realm service
   final realmConfig =
       json.decode(await rootBundle.loadString(kRealmConfigFile));
   String appId = realmConfig['appId'];

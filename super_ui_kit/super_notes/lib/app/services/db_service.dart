@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/models/category.dart';
 import 'package:super_notes/app/data/models/feedback.dart';

@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../controllers/setting_controller.dart';
 

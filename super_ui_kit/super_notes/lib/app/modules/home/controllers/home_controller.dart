@@ -47,17 +47,15 @@ class HomeController extends GetxController {
       ),
     );
     _dbService.realm!.write(() {
-      _dbService.realm!.addAll(list!);
+      _dbService.realm!.addAll(list);
       var cat = _dbService.realm!
           .find<Category>(ObjectId.fromHexString('641940f80e42d5334fdf6a75'));
       cat?.subCategories.addAll(list.map((e) => e.id).toList());
     });
-    printInfo(info: 'Saved ${list?.length} categories');
+    printInfo(info: 'Saved ${list.length} categories');
   }
 
   addNotes() {
-    List<String> popularLanguages = [];
-
     var noteJson = {
       "title": "RW-Dart-Cheatsheet-1.0.2",
       "desc": "Dart 2 Cheat Sheet and Quick Reference",

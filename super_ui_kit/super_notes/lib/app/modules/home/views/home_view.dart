@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:super_notes/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:super_notes/app/modules/search/views/search_view.dart';
