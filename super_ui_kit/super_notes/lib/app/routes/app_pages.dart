@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
