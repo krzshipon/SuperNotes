@@ -5,9 +5,9 @@ import 'package:super_notes/app/modules/search/views/search_card_view.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../../note/views/note_item_card_view.dart';
-import '../controllers/search_controller.dart';
+import '../controllers/search_controller.dart' as search_controller;
 
-class SearchView extends GetView<SearchController> {
+class SearchView extends GetView<search_controller.SearchController> {
   const SearchView({super.key});
 
   @override
