@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:super_notes_admin/app/routes/app_pages.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
+import '../../../data/data_keys.dart';
+
 class AuthController extends GetxController {
+  final GetStorage box = GetStorage();
   TextEditingController tcUserName = TextEditingController();
   TextEditingController tcUserPass = TextEditingController();
 
@@ -16,19 +18,19 @@ class AuthController extends GetxController {
   void onInit() {
     super.onInit();
     tcUserName.addListener(() {
-      // box.write(kUserEmail, tcUserName.text);
+      box.write(kUserEmail, tcUserName.text);
       printInfo(info: tcUserName.text);
     });
     tcUserPass.addListener(() {
-      // box.write(kUserPass, tcUserPass.text);
+      box.write(kUserPass, tcUserPass.text);
     });
   }
 
   @override
   void onReady() {
     super.onReady();
-    // tcUserName.text = box.read(kUserEmail) ?? "";
-    // tcUserPass.text = box.read(kUserPass) ?? "";
+    tcUserName.text = box.read(kUserEmail) ?? "";
+    tcUserPass.text = box.read(kUserPass) ?? "";
     // if (_authService.currentUser.value != null) {
     //   Get.offNamed(Routes.HOME);
     // }

@@ -32,3 +32,4 @@ export 'package:lottie/lottie.dart';
 export 'package:intl/intl.dart';
 export 'package:responsive_framework/responsive_framework.dart' hide Condition;
 export 'package:get/get.dart';
+export 'package:get_storage/get_storage.dart';

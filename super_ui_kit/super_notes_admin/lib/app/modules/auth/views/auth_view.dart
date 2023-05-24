@@ -27,15 +27,17 @@ class AuthView extends GetView<AuthController> {
           //   child: CSText.headline('auth_welcome'),
           // ),
           verticalSpaceMedium,
-          Obx(
-            () => CSInputField(
-              controller: controller.tcUserName,
-              placeholder: 'auth_email'.tr,
-              errorText: controller.hasEmailError.value
-                  ? 'auth_email_validation_error'.tr
-                  : null,
-            ),
-          ),
+          Container(
+              constraints: BoxConstraints(maxWidth: Get.width / 4),
+              child: Obx(
+                () => CSInputField(
+                  controller: controller.tcUserName,
+                  placeholder: 'auth_email'.tr,
+                  errorText: controller.hasEmailError.value
+                      ? 'auth_email_validation_error'.tr
+                      : null,
+                ),
+              )),
           verticalSpaceRegular,
           Obx(
             () => CSInputField(
