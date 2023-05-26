@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:super_notes_admin/app/routes/app_pages.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../../../data/data_keys.dart';
@@ -43,11 +44,14 @@ class AuthController extends GetxController {
 
   authenticateUser() async {
     Get.showLoader();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(milliseconds: 1400), () {
       Get.hideLoader();
-      if (tcUserName.text == "01401303202" && tcUserPass == "1357024680") {
+      printInfo(info: 'Username: ${tcUserName.text} pass: ${tcUserPass.text}');
+      if (tcUserName.text == "01401303202" &&
+          tcUserPass.text == "01401303202") {
         Get.showDialog("Login Success", dialogType: DialogType.success);
-        // Get.toNamed(Routes.HOME)
+        Timer(
+            const Duration(milliseconds: 1100), () => Get.toNamed(Routes.HOME));
       } else {
         Get.showDialog("Login Failed!", dialogType: DialogType.error);
       }

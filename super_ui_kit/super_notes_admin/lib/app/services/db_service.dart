@@ -1,15 +1,14 @@
 // ignore_for_file: unused_local_variable
-
 import 'package:realm/realm.dart';
-import 'package:super_notes/app/data/models/category.dart';
-import 'package:super_notes/app/data/models/feedback.dart';
-import 'package:super_notes/app/data/models/intro.dart';
-import 'package:super_notes/app/data/models/note.dart';
-import 'package:super_notes/app/data/models/note_req.dart';
-import 'package:super_notes/app/data/models/profile.dart';
-import 'package:super_notes/app/data/models/review.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
+import '../data/models/category.dart';
+import '../data/models/feedback.dart';
+import '../data/models/intro.dart';
+import '../data/models/note.dart';
+import '../data/models/note_req.dart';
+import '../data/models/profile.dart';
+import '../data/models/review.dart';
 import 'auth_service.dart';
 
 class DbService extends GetxService {

@@ -10,7 +10,8 @@ class AuthView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return CSHomeWidget(
       child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(
+            horizontal: Get.width > 900 ? Get.width / 3 : Get.width > 600 ? Get.width / 4: 30),
         children: [
           verticalSpaceLarge,
           verticalSpaceLarge,

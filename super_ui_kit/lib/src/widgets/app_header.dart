@@ -7,6 +7,7 @@ enum HeaderType { home, other }
 
 class CSHeader extends StatelessWidget {
   final String title;
+  final bool showLeading;
   final Widget? trailing;
   final HeaderType headerType;
   final void Function()? onLeftIconClick;
@@ -14,6 +15,7 @@ class CSHeader extends StatelessWidget {
   const CSHeader({
     Key? key,
     this.title = '',
+    this.showLeading = true,
     this.trailing,
     this.headerType = HeaderType.other,
     this.onLeftIconClick,
@@ -25,7 +27,7 @@ class CSHeader extends StatelessWidget {
       children: [
         Expanded(
           flex: 2,
-          child: Center(
+          child: showLeading? Center(
               child: CSIconButton(
             icon: (headerType == HeaderType.home)
                 ? Icons.home_sharp
@@ -35,7 +37,7 @@ class CSHeader extends StatelessWidget {
                 : (headerType == HeaderType.home)
                     ? null
                     : () => Navigator.of(context).pop(),
-          )),
+          ),): const SizedBox.shrink(),
         ),
         Expanded(
           flex: 6,
