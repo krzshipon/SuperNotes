@@ -9,7 +9,7 @@ class GlobalMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     printInfo(info: "Redirect");
-    var isLoggedIn = _authService.currentUser.value == null;
+    var isLoggedIn = _authService.currentUser.value != null;
     return isLoggedIn == true ? null : const RouteSettings(name: Routes.AUTH);
   }
 }

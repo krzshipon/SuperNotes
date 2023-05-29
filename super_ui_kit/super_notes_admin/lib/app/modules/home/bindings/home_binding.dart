@@ -1,6 +1,7 @@
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../../auth/controllers/auth_controller.dart';
+import '../../note_add/controllers/note_add_controller.dart';
 import '../../notes/controllers/notes_controller.dart';
 import '../controllers/home_controller.dart';
 
@@ -15,6 +16,9 @@ class HomeBinding extends Bindings {
     );
     Get.lazyPut<NotesController>(
       () => NotesController(),
+    );
+    Get.lazyPut<NoteAddController>(
+      () => NoteAddController(),
     );
   }
 }

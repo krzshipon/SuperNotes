@@ -25,7 +25,9 @@ Future<void> main() async {
   runApp(
     GetMaterialApp(
       title: "Application",
-      initialRoute: AppPages.INITIAL,
+      initialRoute: Get.find<AuthService>().currentUser.value == null
+          ? AppPages.INITIAL
+          : Routes.HOME,
       getPages: AppPages.routes,
       darkTheme: appDarkTheme,
       enableLog: true,

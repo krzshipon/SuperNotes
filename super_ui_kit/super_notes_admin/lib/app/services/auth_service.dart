@@ -12,7 +12,6 @@ class AuthService extends GetxService {
     this.id = id;
     this.baseUrl = baseUrl;
     _app = App(AppConfiguration(id, baseUrl: baseUrl));
-    await logInUserEmailPw("01401303202", "10933Krz");
     currentUser.value = _app.currentUser;
     return this;
   }

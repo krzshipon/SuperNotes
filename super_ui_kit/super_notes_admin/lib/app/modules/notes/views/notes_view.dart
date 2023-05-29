@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:super_notes_admin/app/modules/notes/views/note_item_view.dart';
 
 import 'package:super_ui_kit/super_ui_kit.dart';
 
@@ -12,12 +13,12 @@ class NotesView extends GetView<NotesController> {
       shrinkWrap: true,
       children: [
         verticalSpaceRegular,
-        CSHeader(
-          title: "Note List",
+        const CSHeader(
+          title: "Note List", //TODO: remove hard code value
           showLeading: false,
         ),
         verticalSpaceMedium,
-        CSCard(
+        const CSCard(
           elevation: 0,
           childrens: [
             Row(
@@ -54,83 +55,14 @@ class NotesView extends GetView<NotesController> {
             ),
           ],
         ),
-        CSCard(
-          childrens: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText("01"),
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText("A super note"),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText("Krz"),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText.title("25 Apr 2022"),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        CSCard(
-          childrens: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText("02"),
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText("A super note 2"),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText("Krz"),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: CSText.title("27 Apr 2022"),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        ListView.builder(
-          itemBuilder: (context, idx) => Text(controller.notes[idx].title),
-          shrinkWrap: true,
-          itemCount: controller.notes.length,
-          physics: ClampingScrollPhysics(),
+        Obx(
+          () => ListView.builder(
+            itemBuilder: (context, idx) =>
+                NoteItemView(controller.notes[idx], idx),
+            shrinkWrap: true,
+            itemCount: controller.notes.length,
+            physics: const ClampingScrollPhysics(),
+          ),
         ),
       ],
     );

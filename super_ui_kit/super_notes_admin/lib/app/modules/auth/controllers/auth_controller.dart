@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:realm/realm.dart';
 import 'package:super_notes_admin/app/routes/app_pages.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../../../data/data_keys.dart';
+import '../../../services/auth_service.dart';
 
 class AuthController extends GetxController {
+  final _authService = Get.find<AuthService>();
+
   final GetStorage box = GetStorage();
   TextEditingController tcUserName = TextEditingController();
   TextEditingController tcUserPass = TextEditingController();
@@ -44,57 +48,42 @@ class AuthController extends GetxController {
 
   authenticateUser() async {
     Get.showLoader();
-    Timer(const Duration(milliseconds: 1400), () {
-      Get.hideLoader();
-      printInfo(info: 'Username: ${tcUserName.text} pass: ${tcUserPass.text}');
-      if (tcUserName.text == "01401303202" &&
-          tcUserPass.text == "01401303202") {
-        Get.showDialog("Login Success", dialogType: DialogType.success);
-        Timer(
-            const Duration(milliseconds: 1100), () => Get.toNamed(Routes.HOME));
-      } else {
-        Get.showDialog("Login Failed!", dialogType: DialogType.error);
-      }
-    });
-    // hasEmailError.value = false;
-    // hasPassError.value = false;
-    // String userName = tcUserName.text;
-    // String userPass = tcUserPass.text;
-    // if (userName.isEmpty) {
-    //   hasEmailError.value = true;
+    // Timer(const Duration(milliseconds: 1400), () {
     //   Get.hideLoader();
-    // } else if (!userPass.isValidPassword) {
-    //   hasPassError.value = true;
-    //   Get.hideLoader();
-    // } else {
-    //   if (authType.value == AuthType.login) {
-    //     var user = await _authService
-    //         .logInUserEmailPw(userName, userPass)
-    //         .catchError((e) {
-    //       if (e is RealmError) {
-    //         printError(info: 'Realm Error: $e');
-    //       }
-    //       error.value = "$e";
-    //       printError(info: 'Auth Error: $e');
-    //       Get.hideLoader();
-    //     });
-    //     printInfo(info: "User: $user");
-    //     Get.offAllNamed(Routes.HOME);
+    //   printInfo(info: 'Username: ${tcUserName.text} pass: ${tcUserPass.text}');
+    //   if (tcUserName.text == "01401303202" &&
+    //       tcUserPass.text == "01401303202") {
+    //     Get.showDialog("Login Success", dialogType: DialogType.success);
+    //     Timer(
+    //         const Duration(milliseconds: 1100), () => Get.toNamed(Routes.HOME));
     //   } else {
-    //     var user = await _authService
-    //         .registerUserEmailPw(userName, userPass)
-    //         .catchError((e) {
-    //       if (e is RealmError) {
-    //         printError(info: 'Realm Error: $e');
-    //       }
-    //       error.value = "$e";
-    //       printError(info: 'Auth Error: $e');
-    //       Get.hideLoader();
-    //     });
-    //     printInfo(info: "User: $user");
-    //     Get.offAllNamed(Routes.HOME);
+    //     Get.showDialog("Login Failed!", dialogType: DialogType.error);
     //   }
-    //   Get.hideLoader();
-    // }
+    // });
+    hasEmailError.value = false;
+    hasPassError.value = false;
+    String userName = tcUserName.text;
+    String userPass = tcUserPass.text;
+    if (userName.isEmpty) {
+      hasEmailError.value = true;
+      Get.hideLoader();
+    } else if (userPass.isEmpty) {
+      hasPassError.value = true;
+      Get.hideLoader();
+    } else {
+      var user = await _authService
+          .logInUserEmailPw(userName, userPass)
+          .catchError((e) {
+        if (e is RealmError) {
+          printError(info: 'Realm Error: $e');
+        }
+        error.value = "$e";
+        printError(info: 'Auth Error: $e');
+        Get.hideLoader();
+      });
+      printInfo(info: "User: $user");
+      Get.hideLoader();
+      Get.offAllNamed(Routes.HOME);
+    }
   }
 }
