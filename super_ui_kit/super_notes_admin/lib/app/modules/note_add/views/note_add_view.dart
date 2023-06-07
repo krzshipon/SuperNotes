@@ -59,7 +59,14 @@ class NoteAddView extends GetView<NoteAddController> {
           placeholder: 'Previews Links'.tr,
           maxLines: 2,
         ),
-        verticalSpaceLarge
+        verticalSpaceLarge,
+        CSButton.outline(
+          title: "Select Category".tr,
+          onTap: () => controller.addCategory(),
+        ),
+        verticalSpaceLarge,
+        CSButton.outline(title: "Save Note".tr),
+        verticalSpaceLarge,
       ],
     );
   }
