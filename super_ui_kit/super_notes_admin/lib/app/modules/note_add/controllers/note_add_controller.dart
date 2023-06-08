@@ -1,10 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:realm/realm.dart';
 import 'package:super_notes_admin/app/modules/note_add/views/category_dialog_view_view.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../../../data/models/category.dart';
-import '../../../data/models/note.dart';
 import '../../../services/db_service.dart';
 
 class NoteAddController extends GetxController {
@@ -82,12 +80,14 @@ class NoteAddController extends GetxController {
   onCategoryChanged(index, Category? value) {
     printInfo(info: 'category changed>>> index:$index value:$value');
     if (value == null) return;
-    selectedValues.insert(index, value);
+    selectedValues[index] = value;
     categoriesList.add(categories);
     print(selectedValues.length);
     if (index + 1 < categoriesList.length) {
       categoriesList.removeRange(index + 1, categoriesList.length);
     }
+    if (value.isLast) return;
+    getSubCategories(index, value);
   }
 
   getCategories() {
@@ -95,13 +95,22 @@ class NoteAddController extends GetxController {
         'parentId == null AND verified == true SORT(name ASC)';
     final categoryResults =
         _dbService.realm!.query<Category>(categoriesQuery).toList();
-    categoryResults.forEach((element) {
-      print(element.id);
-    });
+
     categories.value = categoryResults;
     if (categoryResults.isNotEmpty) {
       categoriesList.add(categoryResults);
       selectedValues.insert(0, categoryResults[0]);
+    }
+  }
+
+  void getSubCategories(int index, Category category) {
+    const categoriesQuery =
+        'parentId == \$0 AND verified == true SORT(name ASC)';
+    final categoryResults = _dbService.realm!
+        .query<Category>(categoriesQuery, [category.id]).toList();
+    if (categoryResults.isNotEmpty) {
+      categoriesList.add(categoryResults);
+      selectedValues.insert(index, categoryResults[0]);
     }
   }
 }
