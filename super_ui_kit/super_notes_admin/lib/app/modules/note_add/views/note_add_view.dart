@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
+import '../../../data/models/category.dart';
 import '../controllers/note_add_controller.dart';
 
 class NoteAddView extends GetView<NoteAddController> {
@@ -60,6 +61,14 @@ class NoteAddView extends GetView<NoteAddController> {
           maxLines: 2,
         ),
         verticalSpaceLarge,
+        Obx(
+          () => ListView.builder(
+            itemBuilder: (context, index) =>
+                CSText(controller.selectedCategories[index].name),
+            shrinkWrap: true,
+            itemCount: controller.selectedCategories.length,
+          ),
+        ),
         CSButton.outline(
           title: "Select Category".tr,
           onTap: () => controller.addCategory(),

@@ -4,9 +4,11 @@ import 'package:super_ui_kit/super_ui_kit.dart';
 
 import '../../../data/models/category.dart';
 import '../../../services/db_service.dart';
+import '../../../util/app_constants.dart';
 
 class NoteAddController extends GetxController {
   final _dbService = Get.find<DbService>();
+  GetStorage _box = GetStorage();
 
   final titleController = TextEditingController();
   final descController = TextEditingController();
@@ -20,6 +22,8 @@ class NoteAddController extends GetxController {
   final selectedValues = <Category>[].obs;
 
   final categories = <Category>[].obs;
+
+  final selectedCategories = <Category>[].obs;
 
   @override
   void onInit() {
@@ -74,14 +78,21 @@ class NoteAddController extends GetxController {
   // }
 
   addCategory() {
-    Get.defaultDialog(content: CategoryDialogViewView());
+    Get.defaultDialog(
+      content: CategoryDialogViewView(),
+      onConfirm: () {
+        selectedCategories.add(selectedValues.last);
+        Get.back();
+      },
+    );
   }
 
   onCategoryChanged(index, Category? value) {
     printInfo(info: 'category changed>>> index:$index value:$value');
     if (value == null) return;
     selectedValues[index] = value;
-    categoriesList.add(categories);
+    categoriesList.refresh;
+    //categoriesList.add(categories);
     print(selectedValues.length);
     if (index + 1 < categoriesList.length) {
       categoriesList.removeRange(index + 1, categoriesList.length);
@@ -110,7 +121,7 @@ class NoteAddController extends GetxController {
         .query<Category>(categoriesQuery, [category.id]).toList();
     if (categoryResults.isNotEmpty) {
       categoriesList.add(categoryResults);
-      selectedValues.insert(index, categoryResults[0]);
+      selectedValues.insert(index + 1, categoryResults[0]);
     }
   }
 }
