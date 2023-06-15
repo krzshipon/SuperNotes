@@ -63,18 +63,28 @@ class NoteAddView extends GetView<NoteAddController> {
         verticalSpaceLarge,
         Obx(
           () => ListView.builder(
-            itemBuilder: (context, index) =>
-                CSText(controller.selectedCategories[index].name),
+            itemBuilder: (context, index) => Row(children: [
+              CSText(controller.selectedCategories[index].name),
+              horizontalSpaceMedium,
+              CSButton.outline(
+                title: "Delete".tr,
+                onTap: () => controller.deleteSelection(index),
+              )
+            ]),
             shrinkWrap: true,
             itemCount: controller.selectedCategories.length,
           ),
         ),
+        verticalSpaceMedium,
         CSButton.outline(
           title: "Select Category".tr,
           onTap: () => controller.addCategory(),
         ),
         verticalSpaceLarge,
-        CSButton.outline(title: "Save Note".tr),
+        CSButton.outline(
+          title: "Save Note".tr,
+          onTap: () => controller.addNote(),
+        ),
         verticalSpaceLarge,
       ],
     );
