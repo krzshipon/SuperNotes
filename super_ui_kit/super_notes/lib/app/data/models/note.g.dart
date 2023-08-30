@@ -295,7 +295,8 @@ class Note extends _Note with RealmEntity, RealmObjectBase, RealmObject {
     return const SchemaObject(ObjectType.realmObject, Note, 'Note', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
-      SchemaProperty('title', RealmPropertyType.string, indexed: true),
+      SchemaProperty('title', RealmPropertyType.string,
+          indexType: RealmIndexType.regular),
       SchemaProperty('desc', RealmPropertyType.string),
       SchemaProperty('src', RealmPropertyType.string),
       SchemaProperty('authorName', RealmPropertyType.string,
@@ -321,7 +322,8 @@ class Note extends _Note with RealmEntity, RealmObjectBase, RealmObject {
           mapTo: 'created_at'),
       SchemaProperty('updatedAt', RealmPropertyType.timestamp,
           mapTo: 'updated_at'),
-      SchemaProperty('verified', RealmPropertyType.bool, indexed: true),
+      SchemaProperty('verified', RealmPropertyType.bool,
+          indexType: RealmIndexType.regular),
       SchemaProperty('userRating', RealmPropertyType.object,
           mapTo: 'user_rating', optional: true, linkTarget: 'Rating'),
     ]);

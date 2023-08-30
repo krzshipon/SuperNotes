@@ -12,6 +12,7 @@ class DashCategoryCardView extends GetView {
   Widget build(BuildContext context) {
     return CSCard(
       onTap: ontap,
+      mainAxisAlignment: MainAxisAlignment.center,
       childrens: [
         const Icon(CupertinoIcons.book_circle),
         verticalSpaceTiny,

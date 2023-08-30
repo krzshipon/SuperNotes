@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:get_storage/get_storage.dart';
 import 'package:super_notes/app/extentions/string_ext.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
@@ -41,6 +40,7 @@ Future<void> main() async {
       darkTheme: appDarkTheme,
       enableLog: true,
       //initialBinding: BindingsBuilder(() => initServices()),
+      debugShowCheckedModeBanner: false,
     ),
   );
 }

@@ -96,10 +96,18 @@ class NoteView extends GetView<NoteController> {
                             child: Center(
                               child: Obx(
                                 () => controller.note.value.previews.isNotEmpty
-                                    ? Image.network(
-                                        controller.note.value.previews[
-                                            controller.currentPreviewIdx.value],
-                                      )
+                                    ? controller
+                                            .note
+                                            .value
+                                            .previews[controller
+                                                .currentPreviewIdx.value]
+                                            .isNotEmpty
+                                        ? Image.network(
+                                            controller.note.value.previews[
+                                                controller
+                                                    .currentPreviewIdx.value],
+                                          )
+                                        : CSText.label('noPreview'.tr)
                                     : CSText.label('noPreview'.tr),
                               ),
                             ),

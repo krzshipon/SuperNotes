@@ -82,8 +82,8 @@ class ProfileView extends GetView<ProfileController> {
                 ),
               ),
               verticalSpaceMedium,
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Expanded(
                     flex: 1,
                     child: Align(

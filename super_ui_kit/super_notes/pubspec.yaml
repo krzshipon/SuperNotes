@@ -12,7 +12,7 @@ dependencies:
   flutter: 
     sdk: flutter
   get_storage: ^2.1.1
-  realm: ^1.0.2
+  realm: ^1.4.0
   flutter_native_splash: ^2.2.19
   path_provider: ^2.0.5
   water_drop_nav_bar: ^2.2.0+5

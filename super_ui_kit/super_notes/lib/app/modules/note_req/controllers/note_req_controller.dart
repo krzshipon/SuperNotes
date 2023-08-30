@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/models/note_req.dart';
 import 'package:super_notes/app/routes/app_pages.dart';
@@ -40,7 +39,6 @@ class NoteReqController extends GetxController {
           var addedReq = _dbService.realm?.add<NoteReq>(
             NoteReq(
               ObjectId(),
-              status: NoteReqStatus.PENDING.name,
               updatedAt: DateTime.now(),
               desc: text,
               userId: _authService.currentUser.value?.id,
@@ -68,7 +66,7 @@ class NoteReqController extends GetxController {
       box.writeInMemory(kCurrentSelectedNoteKey, request.noteId);
       Get.toNamed(Routes.NOTE);
     } else {
-      Get.showDialog('Your note will be uploaded soon!');
+      Get.showDialog('Your note will be uploaded soon!'.tr);
     }
   }
 }

@@ -38,8 +38,7 @@ class Feedback extends _Feedback
   set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
 
   @override
-  String? get userId =>
-      RealmObjectBase.get<ObjectId>(this, 'user_id') as String?;
+  String? get userId => RealmObjectBase.get<String>(this, 'user_id') as String?;
   @override
   set userId(String? value) => RealmObjectBase.set(this, 'user_id', value);
 

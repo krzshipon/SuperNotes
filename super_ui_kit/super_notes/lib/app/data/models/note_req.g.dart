@@ -14,7 +14,6 @@ class NoteReq extends _NoteReq with RealmEntity, RealmObjectBase, RealmObject {
     String? userId,
     String desc = '',
     String? noteId,
-    required String status,
     String? msg,
     required DateTime updatedAt,
   }) {

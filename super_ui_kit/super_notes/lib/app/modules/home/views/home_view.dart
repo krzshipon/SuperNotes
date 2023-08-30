@@ -10,9 +10,7 @@ import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  final TextEditingController tc = TextEditingController();
-
-  HomeView({super.key});
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
