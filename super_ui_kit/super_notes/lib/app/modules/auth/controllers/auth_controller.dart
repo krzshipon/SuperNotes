@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/data_keys.dart';
 import 'package:super_notes/app/extentions/string_ext.dart';

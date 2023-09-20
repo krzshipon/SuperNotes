@@ -1,4 +1,3 @@
-import 'package:get_storage/get_storage.dart';
 import 'package:super_notes/app/data/models/category.dart';
 import 'package:super_notes/app/routes/app_pages.dart';
 import 'package:super_notes/app/services/db_service.dart';

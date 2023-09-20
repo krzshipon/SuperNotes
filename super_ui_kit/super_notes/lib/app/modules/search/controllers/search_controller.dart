@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:super_notes/app/data/models/note.dart';
 
 import 'package:super_notes/app/routes/app_pages.dart';

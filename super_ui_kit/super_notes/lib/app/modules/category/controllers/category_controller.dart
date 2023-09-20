@@ -1,4 +1,3 @@
-import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/models/category.dart';
 import 'package:super_notes/app/data/models/note.dart';

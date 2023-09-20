@@ -1,4 +1,3 @@
-import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:super_notes/app/data/app_language_data.dart';
 import 'package:super_notes/app/data/models/language.dart';

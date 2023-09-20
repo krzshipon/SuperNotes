@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:super_notes/app/data/models/note.dart';
 import 'package:super_notes/app/data/models/profile.dart';
