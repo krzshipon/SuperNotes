@@ -20,7 +20,10 @@ class DashboardView extends GetView<DashboardController> {
           Padding(
             padding:
                 const EdgeInsets.only(left: kmCardMarginS + kmTextExtraMargin),
-            child: CSText.title('hello_user'.trParams({'name': 'Krz'})),
+            child: CSText.title('hello_user'.trParams({
+              'name': controller.dbService.profile.value?.name ??
+                  controller.name.value
+            })),
           ),
           Padding(
             padding:

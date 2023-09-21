@@ -10,11 +10,14 @@ import 'package:super_notes/app/data/models/profile.dart';
 import 'package:super_notes/app/data/models/review.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
+import '../data/data_keys.dart';
 import 'auth_service.dart';
 
 class DbService extends GetxService {
+  GetStorage box = GetStorage();
   final _authService = Get.find<AuthService>();
   Realm? realm;
+  final profile = Rxn<Profile>();
 
   @override
   void onInit() {
@@ -73,8 +76,43 @@ class DbService extends GetxService {
         //mutableSubscriptions.add(ratingQuery, name: 'ratings', update: true);
       });
       // }
+      bindProfile(user);
     } else {
-      realm?.close();
+      close();
+    }
+  }
+
+  Future<void> close() async {
+    box.remove(kUserName);
+    if (_authService.currentUser.value != null) {
+      await _authService.currentUser.value?.logOut();
+      _authService.currentUser.value = null;
+    }
+    profile.value = null;
+    realm?.close();
+  }
+
+  @override
+  void onClose() {
+    realm?.close();
+    super.onClose();
+  }
+
+  void bindProfile(User? user) {
+    if (user != null && realm != null) {
+      // User is logged in & realm exist...
+      var query = r'userId == $0';
+      var profileStream = realm!
+          .all<Profile>()
+          .changes
+          .map((profileEvent) => profileEvent.results);
+      profileStream.listen((results) {
+        if (results.isNotEmpty) {
+          profile.value = results[0];
+          profile.refresh();
+          box.write(kUserName, profile.value?.name);
+        }
+      });
     }
   }
 }

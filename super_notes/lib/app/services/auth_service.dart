@@ -49,7 +49,9 @@ class AuthService extends GetxService {
   }
 
   Future<dynamic> refreshUserData() async {
+    if (currentUser.value == null) return null;
     await currentUser.value?.refreshCustomData().then((value) {
+      currentUser.refresh();
       return value;
     });
   }

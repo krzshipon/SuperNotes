@@ -13,12 +13,10 @@ dependencies:
       ref: dev
   flutter: 
     sdk: flutter
-  get_storage: ^2.1.1
   realm: ^1.4.0
   flutter_native_splash: ^2.2.19
   path_provider: ^2.0.5
   water_drop_nav_bar: ^2.2.0+5
-  auto_animated: ^3.1.0
   flutter_cached_pdfview: ^0.4.1
   pdf: ^3.7.1
   flutter_rating_bar: ^4.0.1

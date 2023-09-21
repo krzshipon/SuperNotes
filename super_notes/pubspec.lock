@@ -42,7 +42,7 @@ packages:
     source: hosted
     version: "2.11.0"
   auto_animated:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: auto_animated
       sha256: f62311033d043d2709c25444551debdfd08649138c2923b0298d776792291149
@@ -345,7 +345,7 @@ packages:
     source: hosted
     version: "4.6.5"
   get_storage:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: get_storage
       sha256: "39db1fffe779d0c22b3a744376e86febe4ade43bf65e06eab5af707dc84185a2"

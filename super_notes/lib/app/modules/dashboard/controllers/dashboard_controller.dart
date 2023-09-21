@@ -4,15 +4,20 @@ import 'package:super_notes/app/services/db_service.dart';
 import 'package:super_notes/app/util/app_constants.dart';
 import 'package:super_ui_kit/super_ui_kit.dart';
 
+import '../../../data/data_keys.dart';
+
 class DashboardController extends GetxController {
-  final _dbService = Get.find<DbService>();
+  final dbService = Get.find<DbService>();
 
   GetStorage box = GetStorage();
 
   final categories = <Category>[].obs;
 
+  final name = ''.obs;
+
   @override
   void onInit() {
+    name.value = box.read<String>(kUserName) ?? '';
     super.onInit();
     categories.bindStream(getCategories());
   }
@@ -29,7 +34,7 @@ class DashboardController extends GetxController {
     const categoriesQuery =
         'parentId == null AND verified == true SORT(name ASC)';
     final categoryStream =
-        _dbService.realm!.query<Category>(categoriesQuery).changes;
+        dbService.realm!.query<Category>(categoriesQuery).changes;
     return categoryStream.map((event) => event.results.toList());
   }
 }
